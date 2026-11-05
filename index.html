@@ -329,6 +329,186 @@ section{padding:54px 0;scroll-margin-top:20px}
   @keyframes viajaV{0%{top:-4px;opacity:0}15%{opacity:1}85%{opacity:1}100%{top:100%;opacity:0}}
 }
 
+/* ===================== DE UN VISTAZO (renovado) ===================== */
+.vistazo .vz{border-radius:18px;padding:24px 26px 22px}
+.vz__h{margin-bottom:18px}
+.vz__h h3{font-size:clamp(18px,2.3vw,21px);font-weight:700;letter-spacing:-.02em;margin-bottom:3px}
+.vz__pie{font-size:.84em;font-style:italic;color:var(--ink-3);margin:16px 0 0;line-height:1.5}
+
+/* acuerdos */
+.vz-ac{display:grid;grid-template-columns:190px minmax(0,1fr);gap:26px;align-items:center}
+.anillo{position:relative;margin:0;width:100%;aspect-ratio:1}
+.anillo svg{display:block;width:100%;height:100%}
+.anillo__a{fill:none;stroke-width:13;transition:stroke-dasharray .9s cubic-bezier(.3,.9,.3,1)}
+.anillo__c{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;pointer-events:none}
+.anillo__c b{font-family:'Inter',system-ui,sans-serif;font-size:34px;font-weight:700;letter-spacing:-.04em;color:var(--ink);line-height:1}
+.anillo__c b small{font-size:15px;color:var(--ink-3);font-weight:600;letter-spacing:0}
+.anillo__c span{font-family:'Inter',system-ui,sans-serif;font-size:10.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3);margin-top:5px}
+.tiles{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.tile{position:relative;text-align:left;display:flex;flex-direction:column;gap:5px;padding:14px 30px 14px 15px;
+  border-radius:14px;border:1px solid var(--rule);background:var(--paper);cursor:pointer;font:inherit;color:inherit;
+  transition:transform .3s cubic-bezier(.3,1.4,.5,1),box-shadow .3s,border-color .3s}
+.tile:hover:not(:disabled){transform:translateY(-2px);box-shadow:0 8px 20px rgba(28,26,23,.1);border-color:var(--ink-3)}
+:root[data-theme="dark"] .tile:hover:not(:disabled){box-shadow:0 8px 22px rgba(0,0,0,.45)}
+.tile:disabled{opacity:.5;cursor:default}
+.tile::before{content:"";position:absolute;left:0;top:14px;bottom:14px;width:3px;border-radius:0 3px 3px 0;background:var(--k)}
+.tile--ok{--k:var(--ok)} .tile--wip{--k:var(--wip)} .tile--open{--k:var(--open)} .tile--warn{--k:var(--warn)}
+.tile__n{font-family:'Inter',system-ui,sans-serif;font-size:26px;font-weight:700;letter-spacing:-.03em;color:var(--ink);line-height:1}
+.tile__ej{font-size:.8em;color:var(--ink-2);line-height:1.4;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.tile__ir{position:absolute;right:11px;top:15px;width:15px;height:15px;color:var(--ink-3);transition:transform .3s}
+.tile:hover .tile__ir{transform:translateX(3px);color:var(--ink)}
+
+/* costo */
+.vz-cost{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:22px;align-items:stretch}
+.cost__pant{display:flex;flex-direction:column;gap:3px;padding:20px 22px;border-radius:16px;color:#fff;
+  background:radial-gradient(120% 120% at 0% 0%,var(--r2),var(--r4));
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.18),0 10px 26px rgba(13,79,94,.22)}
+:root[data-theme="dark"] .cost__pant{background:radial-gradient(120% 120% at 0% 0%,#2d7f8f,#163e48);box-shadow:0 10px 26px rgba(0,0,0,.45)}
+.cost__tag{align-self:flex-start;font-family:'Inter',system-ui,sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;
+  text-transform:uppercase;padding:3px 9px;border-radius:20px;background:rgba(255,255,255,.14);margin-bottom:8px}
+.cost__tag.on{background:#fff;color:var(--r4)}
+.cost__nom{font-family:'Inter',system-ui,sans-serif;font-size:13px;font-weight:600;opacity:.85}
+.cost__monto{font-family:'Inter',system-ui,sans-serif;font-size:clamp(34px,5vw,44px);font-weight:700;letter-spacing:-.04em;
+  line-height:1.05;font-variant-numeric:tabular-nums}
+.cost__d{font-size:.86em;opacity:.8}
+.cost__socio{margin-top:auto;padding-top:16px;border-top:1px solid rgba(255,255,255,.18);display:grid;
+  grid-template-columns:1fr auto;align-items:center;gap:2px 10px}
+.cost__k{font-family:'Inter',system-ui,sans-serif;font-size:10.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;opacity:.75;grid-column:1/-1}
+.cost__pp{font-family:'Inter',system-ui,sans-serif;font-size:22px;font-weight:700;letter-spacing:-.02em}
+.aportes{grid-column:1/-1;list-style:none;margin:8px 0 0;padding:0;display:flex;flex-direction:column;gap:7px}
+.aportes li{display:grid;grid-template-columns:24px 92px minmax(0,1fr) auto;align-items:center;gap:10px}
+.aportes__av{width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-style:normal;
+  font-family:'Inter',sans-serif;font-size:10.5px;font-weight:700;color:#fff;border:1.5px solid rgba(255,255,255,.8)}
+.aportes__n{font-family:'Inter',sans-serif;font-size:13px;font-weight:600;display:flex;flex-direction:column;line-height:1.15}
+.aportes__n small{font-size:10.5px;font-weight:600;opacity:.7}
+.aportes__b{height:6px;border-radius:6px;background:rgba(255,255,255,.14);overflow:hidden}
+.aportes__b i{display:block;height:100%;border-radius:6px;background:rgba(255,255,255,.75)}
+.aportes b{font-family:'Inter',sans-serif;font-size:16px;font-weight:700;letter-spacing:-.02em;font-variant-numeric:tabular-nums;
+  min-width:62px;text-align:right}
+.cost__avs{display:flex}
+.cost__avs i{width:24px;height:24px;border-radius:50%;margin-left:-6px;border:2px solid rgba(255,255,255,.85);
+  display:flex;align-items:center;justify-content:center;font-style:normal;font-family:'Inter',sans-serif;font-size:10px;font-weight:700;color:#fff}
+.cost__cols{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;align-items:end;min-height:230px}
+.col{display:flex;flex-direction:column;align-items:center;gap:7px;height:100%;justify-content:flex-end;
+  background:none;border:none;padding:6px 2px 4px;border-radius:14px;cursor:pointer;font:inherit;color:inherit;
+  transition:background .25s}
+.col:hover{background:var(--paper)}
+.col__v{font-family:'Inter',system-ui,sans-serif;font-size:12.5px;font-weight:700;color:var(--ink-2);font-variant-numeric:tabular-nums}
+.col__tr{position:relative;width:100%;max-width:62px;flex:1;display:flex;align-items:flex-end}
+.col__tr i{display:block;width:100%;height:var(--h);border-radius:12px 12px 6px 6px;background:var(--c);opacity:.35;
+  transition:opacity .3s,transform .4s cubic-bezier(.3,1.4,.5,1);transform-origin:bottom}
+.col[aria-selected="true"] .col__tr i{opacity:1;transform:scaleX(1.06);box-shadow:0 8px 18px rgba(13,79,94,.25)}
+.col__t{font-family:'Inter',system-ui,sans-serif;font-size:12.5px;font-weight:600;color:var(--ink-3)}
+.col[aria-selected="true"] .col__t{color:var(--ink)}
+.col[aria-selected="true"] .col__v{color:var(--accent)}
+
+/* ruta como línea de metro (reutiliza el proceso de servicios) */
+.ruta-res{display:flex;flex-wrap:wrap;gap:8px 20px;margin:-4px 0 20px}
+.ruta-res span{display:inline-flex;align-items:center;gap:7px;font-family:'Inter',sans-serif;font-size:11.5px}
+.ruta-res b{font-weight:700;color:var(--ink)}
+.metro .paso__e{margin-top:4px}
+@media (min-width:761px){.metro .paso__tx{flex:1;align-items:center}.metro .paso__e{margin-top:auto;padding-top:6px}}
+.metro .paso__e .estado{font-size:9.5px}
+.metro .paso.ahora .paso__i{color:var(--wip);border-color:var(--wip);box-shadow:0 0 0 6px color-mix(in srgb,var(--wip) 16%,transparent);transform:none}
+.metro .paso.ahora .paso__t{color:var(--ink)}
+.metro .paso.pulsa .paso__i::after{content:"";position:absolute;inset:-6px;border-radius:50%;border:2px solid var(--wip);
+  animation:pulsoRuta 2.2s ease-out infinite}
+@keyframes pulsoRuta{0%{opacity:.7;transform:scale(.9)}100%{opacity:0;transform:scale(1.45)}}
+.metro .paso.hecho .paso__i{background:var(--ok);border-color:var(--ok)}
+
+/* cobro: simulador */
+.calc{padding:18px 20px;border-radius:16px;background:var(--paper);border:1px solid var(--rule);display:flex;flex-direction:column;gap:14px}
+.calc__sl{display:grid;grid-template-columns:1fr 1fr;gap:12px 28px}
+.calc__l{display:flex;justify-content:space-between;align-items:baseline;gap:10px;margin-bottom:8px;
+  font-family:'Inter',system-ui,sans-serif;font-size:11.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3)}
+.calc__l em{font-style:normal;color:var(--warn);margin-left:4px}
+.calc__l b{font-size:20px;letter-spacing:-.03em;text-transform:none;color:var(--ink);font-variant-numeric:tabular-nums}
+.calc__ayuda{font-size:.78em;color:var(--ink-3);margin:6px 0 0;line-height:1.45}
+.rango{-webkit-appearance:none;appearance:none;width:100%;height:8px;border-radius:8px;margin:2px 0;cursor:pointer;
+  background:linear-gradient(90deg,var(--accent) var(--p,30%),var(--rule) var(--p,30%))}
+.rango--c{background:linear-gradient(90deg,var(--open) var(--p,30%),var(--rule) var(--p,30%))}
+.rango::-webkit-slider-thumb{-webkit-appearance:none;width:24px;height:24px;border-radius:50%;background:#fff;
+  border:2px solid var(--accent);box-shadow:0 2px 8px rgba(28,26,23,.25)}
+.rango--c::-webkit-slider-thumb{border-color:var(--open)}
+.rango::-moz-range-thumb{width:22px;height:22px;border-radius:50%;background:#fff;border:2px solid var(--accent);box-shadow:0 2px 8px rgba(28,26,23,.25)}
+.flujo2{display:flex;flex-direction:column;gap:6px}
+.flujo2__fila{display:grid;grid-template-columns:44px minmax(0,1fr);gap:10px;align-items:center}
+.flujo2__k{font-family:'Inter',system-ui,sans-serif;font-size:10.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3)}
+.flujo2__bar{display:flex;gap:3px;height:28px}
+.flujo2__bar i{display:flex;align-items:center;font-style:normal;min-width:0;border-radius:9px;padding:0 10px;overflow:hidden;
+  transition:flex-grow .45s cubic-bezier(.3,1.1,.4,1)}
+.flujo2__bar span{font-family:'Inter',sans-serif;font-size:11px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.flujo2__bar b{font-weight:800;margin-left:4px;font-variant-numeric:tabular-nums}
+.seg-a{background:linear-gradient(90deg,var(--r3),var(--r2));color:#fff}
+.seg-b{background:linear-gradient(90deg,var(--r4),var(--r3));color:#fff}
+.seg-cos{color:var(--ink-2);background:repeating-linear-gradient(-45deg,var(--paper-3) 0 6px,color-mix(in srgb,var(--open) 22%,var(--paper-3)) 6px 12px);
+  border:1px solid var(--rule)}
+.seg-gan{background:linear-gradient(90deg,var(--ok),color-mix(in srgb,var(--ok) 70%,var(--r2)));color:#fff}
+:root[data-theme="dark"] .seg-a,:root[data-theme="dark"] .seg-b,:root[data-theme="dark"] .seg-gan{color:#0f2228}
+.aros{list-style:none;margin:0;padding:12px 0 0;border-top:1px solid var(--rule);display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.aro{display:flex;flex-direction:column;align-items:center;gap:3px;text-align:center}
+.aro__g{position:relative;width:72px;height:72px}
+.aro__g svg{display:block;width:100%;height:100%}
+.aro__f{fill:none;stroke:var(--rule);stroke-width:6}
+.aro__v{fill:none;stroke-width:6;stroke-linecap:round;transition:stroke-dasharray .6s}
+.aro__i.ava{position:absolute;inset:14px;width:auto;height:auto}
+.aro__i .ava__i{font-size:15px;box-shadow:inset 0 -4px 8px rgba(0,0,0,.14)}
+.aro b{font-family:'Inter',sans-serif;font-size:18px;font-weight:700;letter-spacing:-.03em;color:var(--ink);font-variant-numeric:tabular-nums;margin-top:3px}
+.aro__n{font-family:'Inter',sans-serif;font-size:11.5px;font-weight:600;color:var(--ink-2);display:flex;flex-direction:column;line-height:1.25}
+.aro__n small{font-size:10.5px;color:var(--ink-3)}
+.reparto{border-top:1px solid var(--rule);padding-top:14px}
+.reparto__h{margin-bottom:10px}
+.reparto__l{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.reparto__l li{position:relative;display:flex;flex-direction:column;align-items:flex-start;gap:6px;padding:12px 12px 11px;
+  border-radius:14px;background:var(--paper-2);border:1px solid var(--rule);overflow:hidden}
+.reparto__l li::after{content:"";position:absolute;left:0;right:0;bottom:0;height:3px;background:var(--c)}
+.reparto__l .ava{width:30px;height:30px}
+.reparto__l .ava__i{font-size:12px}
+.reparto__n{font-family:'Inter',sans-serif;font-size:13px;font-weight:700;color:var(--ink);display:flex;align-items:baseline;gap:6px}
+.reparto__n small{font-size:10.5px;font-weight:600;color:var(--ink-3)}
+.reparto__l b{font-family:'Inter',sans-serif;font-size:20px;font-weight:700;letter-spacing:-.03em;color:var(--ink);font-variant-numeric:tabular-nums}
+@media (max-width:760px){
+  .calc{padding:16px}
+  .calc__sl{grid-template-columns:1fr;gap:10px}
+  .aros{gap:4px}
+  .aro__g{width:60px;height:60px}
+  .aro__i.ava{inset:12px}
+  .aro__i .ava__i{font-size:13px}
+  .aro b{font-size:15px}
+  .aro__n{font-size:10px}
+  .reparto__l{grid-template-columns:1fr 1fr}
+  .flujo2__bar .seg-gan{min-width:max-content}
+  .reparto__l b{font-size:18px}
+}
+.cuando{list-style:none;margin:18px 0 0;padding:0;display:flex;align-items:flex-start;justify-content:space-between;position:relative}
+.cuando::before{content:"";position:absolute;left:22px;right:22px;top:17px;height:2px;
+  background:repeating-linear-gradient(90deg,var(--rule) 0 6px,transparent 6px 11px)}
+.cuando li{position:relative;display:flex;flex-direction:column;align-items:center;gap:6px;flex:1;min-width:0}
+.cuando__i{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  background:var(--paper);border:1.5px solid var(--rule);color:var(--ink-3)}
+.cuando__i svg{width:16px;height:16px}
+.cuando--pago .cuando__i{background:var(--accent);border-color:var(--accent);color:#fff;
+  animation:moneda 2.6s ease-in-out infinite}
+:root[data-theme="dark"] .cuando--pago .cuando__i{color:#0f2a30}
+.cuando--pago:last-child .cuando__i{animation-delay:1.3s}
+.cuando__i b{font-family:'Inter',sans-serif;font-size:10px;font-weight:800}
+@keyframes moneda{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
+.cuando__t{font-family:'Inter',sans-serif;font-size:11.5px;font-weight:600;color:var(--ink-2);text-align:center}
+
+@media (max-width:760px){
+  .vistazo .vz{padding:18px}
+  .vz-ac{grid-template-columns:1fr;gap:18px}
+  .anillo{max-width:140px;justify-self:center}
+  .tile{padding:12px 26px 12px 13px}
+  .tile__n{font-size:22px}
+  .vz-cost{grid-template-columns:1fr;gap:14px}
+  .cost__cols{min-height:150px}
+  .ruta-res{margin-bottom:16px}
+  .calc{padding:16px}
+  .mitad b{font-size:20px}
+  .cuando__t{font-size:10.5px}
+}
+
 /* ===================== SERVICIOS ===================== */
 .servs{position:relative}
 .serv{display:none;border:1px solid var(--rule);border-radius:18px;background:var(--paper-2);overflow:hidden}
@@ -765,6 +945,75 @@ footer{margin-top:40px;border-top:1px solid var(--ink);padding:16px 0 54px;opaci
 
 .rv{opacity:0;transform:translateY(14px);transition:opacity .55s,transform .55s cubic-bezier(.2,.8,.2,1)}
 .rv.in{opacity:1;transform:none}
+
+/* ===================== AJUSTES DE CELULAR ===================== */
+.acc__s::before{content:"· "}
+@media (max-width:640px){
+  body{font-size:16px;line-height:1.6}
+  section{padding:30px 0}
+  .sec-head{flex-direction:column;align-items:flex-start;gap:3px;margin-bottom:16px}
+  .sec-head h2{font-size:25px}
+  .sec-head .nota{font-size:12px;line-height:1.4}
+
+  /* calendario: la sombra de la hoja activa ya no se recorta en un recuadro */
+  .cal{padding:20px 2px 22px;margin:0 -2px 6px}
+  .hoja{width:96px}
+
+  .panel{border-radius:16px}
+  .panel__in{padding:18px 16px}
+  .panel h3{font-size:20px}
+  .chk.chk--ac .chk__t,.chk .chk__t{font-size:.95em;line-height:1.5}
+  .chk.chk--ac{padding:10px 8px}
+
+  /* servicios más contenidos */
+  .serv{border-radius:16px}
+  .sv-fig{max-height:170px}
+  .serv__tx{padding:16px}
+  .serv__tx h3{font-size:20px}
+  .serv__d{font-size:.95em;margin-bottom:12px}
+  .serv__chips{margin-bottom:12px}
+  .serv__chips span{font-size:11.5px;padding:3px 10px}
+  .serv__inc li{font-size:12.5px}
+  .serv__nota{font-size:.82em}
+  .proc{padding:16px}
+  .proc__h{flex-direction:column;gap:2px;margin-bottom:12px}
+  .proc__l{gap:10px}
+  .paso__i{width:38px;height:38px;flex-basis:38px}
+  .paso__i svg{width:17px;height:17px}
+  .paso.ahora .paso__i{transform:none;box-shadow:0 0 0 4px var(--accent-soft)}
+  .proc__via{left:17.5px;top:19px;bottom:19px}
+  .paso__t{font-size:13px}
+  .paso__d{font-size:.85em}
+
+  /* tareas y fichas */
+  .frente{padding:16px}
+  .frentes{border-radius:14px}
+  .acc{border-radius:12px}
+  .acc > summary{padding:13px 16px;font-size:16px}
+  /* candidatos de nombre como tarjetas cortas: nombre y riesgo arriba, motivo abajo */
+  #tbl-nombres tr{display:grid;grid-template-columns:1fr auto;gap:4px 10px;padding:14px 0}
+  #tbl-nombres td{padding:0;border:none}
+  #tbl-nombres td::before{content:none}
+  #tbl-nombres td[data-l="Nombre"]{font-size:18px}
+  #tbl-nombres td[data-l="Por qué"]{grid-column:1/-1;font-size:.92em;color:var(--ink-2);line-height:1.5}
+  #tbl-nombres td[data-l="En INDECOPI"]{display:contents}
+  #tbl-nombres td[data-l="En INDECOPI"] .estado{grid-column:2;grid-row:1;align-self:center;white-space:nowrap}
+  #tbl-nombres td[data-l="En INDECOPI"] br{display:none}
+  .ind-n{grid-column:1/-1;font-family:'Inter',sans-serif;font-size:12px;color:var(--ink-3);line-height:1.45}
+  .obs{font-size:.9em;padding:14px 15px;border-radius:12px}
+  .acc pre{font-size:11.5px;padding:14px;border-radius:10px}
+  .acc__s::before{content:none}
+  .acc__s{font-size:11.5px}
+
+  .vistazo .vz{border-radius:16px}
+  .seg button{font-size:12px;padding:8px 10px}
+}
+
+/* el índice del costado se aparta mientras haces scroll y vuelve al detenerte */
+@media (max-width:1199px){
+  .nav-lat{transition:background .28s,box-shadow .28s,padding .28s,border-color .28s,opacity .3s,transform .35s cubic-bezier(.3,1.1,.4,1)}
+  .nav-lat.mueve:not(.abierto){opacity:0;transform:translate(70%,-50%);pointer-events:none}
+}
 </style>
 </head>
 <body>
@@ -898,35 +1147,71 @@ footer{margin-top:40px;border-top:1px solid var(--ink);padding:16px 0 54px;opaci
   </div>
   <div class="vistazo">
 
-    <div class="viz rv">
-      <h3>Lo acordado hasta hoy</h3>
-      <p class="viz__s" id="ac-sub"></p>
-      <div class="acb" id="ac-bar" role="img" aria-label="Estado de los acuerdos"></div>
-      <div class="acb__leg" id="ac-leg"></div>
-      <p class="viz__pie">Lo cerrado ya no se discute. Lo abierto es lo que bloquea la inscripción.</p>
-    </div>
-
-    <div class="viz rv">
-      <h3>Cuánto cuesta arrancar</h3>
-      <p class="viz__s">Tres escenarios de equipamiento · soles</p>
-      <div class="bars" id="bars-inv"></div>
-      <p class="viz__pie">Con el escenario de arranque, el aporte sale cerca de S/ 750 por socio.</p>
-    </div>
-
-    <div class="viz viz--ancho rv">
-      <h3>La ruta</h3>
-      <p class="viz__s">Primero la empresa, en paralelo la web, y recién después las instalaciones propias</p>
-      <div class="ruta" id="ruta"></div>
-    </div>
-
-    <div class="viz viz--ancho rv">
-      <h3>Cómo entra la plata</h3>
-      <p class="viz__s">La regla 50 / 50 evita financiar el equipo con capital propio</p>
-      <div class="pago">
-        <div class="pago__via" aria-hidden="true"><i></i></div>
-        <ol class="pago__pasos" id="flujo"></ol>
+    <div class="viz vz rv">
+      <div class="vz__h"><h3>Lo acordado hasta hoy</h3><p class="viz__s" id="ac-sub"></p></div>
+      <div class="vz-ac">
+        <figure class="anillo" role="img" id="ac-anillo-fig">
+          <svg viewBox="0 0 120 120" aria-hidden="true"><g id="ac-anillo" transform="rotate(-90 60 60)"></g></svg>
+          <figcaption class="anillo__c"><b id="ac-n"></b><span id="ac-q"></span></figcaption>
+        </figure>
+        <div class="tiles" id="ac-tiles"></div>
       </div>
-      <p class="viz__pie">El adelanto cubre como mínimo el equipo. El saldo —accesorios, movilidad, personal y margen— se cobra recién con las pruebas hechas.</p>
+      <p class="vz__pie">Toca un estado para ver esos puntos en la reunión. Lo abierto es lo que frena la inscripción.</p>
+    </div>
+
+    <div class="viz vz rv">
+      <div class="vz__h"><h3>Cuánto cuesta arrancar</h3><p class="viz__s">Tres escenarios de equipamiento · elige uno</p></div>
+      <div class="vz-cost">
+        <div class="cost__pant" aria-live="polite">
+          <span class="cost__tag" id="cost-tag"></span>
+          <span class="cost__nom" id="cost-nom"></span>
+          <span class="cost__monto" id="cost-monto"></span>
+          <span class="cost__d" id="cost-d"></span>
+          <div class="cost__socio">
+            <span class="cost__k">Aporte de cada socio · según su parte</span>
+            <ul class="aportes" id="cost-aportes"></ul>
+          </div>
+        </div>
+        <div class="cost__cols" id="cost-cols" role="tablist" aria-label="Escenarios"></div>
+      </div>
+    </div>
+
+    <div class="viz vz rv">
+      <div class="vz__h"><h3>La ruta</h3><p class="viz__s">Primero la empresa, en paralelo la web, y recién después las instalaciones propias</p></div>
+      <div class="ruta-res" id="ruta-res"></div>
+      <ol class="proc__l metro" id="ruta"></ol>
+    </div>
+
+    <div class="viz vz rv">
+      <div class="vz__h"><h3>Cómo entra la plata</h3><p class="viz__s">Simula un trabajo: cuándo entra la plata, a dónde va y cuánto le queda a cada uno</p></div>
+      <div class="calc">
+        <div class="calc__sl">
+          <div>
+            <label class="calc__l" for="calc-r"><span>Paga el cliente</span><b id="calc-tot"></b></label>
+            <input type="range" class="rango" id="calc-r" min="300" max="6000" step="100" value="1600" aria-label="Monto de la cotización en soles">
+          </div>
+          <div>
+            <label class="calc__l" for="calc-c"><span>Costos <em id="calc-cp"></em></span><b id="calc-cos"></b></label>
+            <input type="range" class="rango rango--c" id="calc-c" min="20" max="90" step="5" value="60" aria-label="Costos como porcentaje de la cotización">
+          </div>
+        </div>
+
+        <div class="flujo2">
+          <div class="flujo2__fila"><span class="flujo2__k">Entra</span>
+            <div class="flujo2__bar">
+              <i class="seg-a" style="flex:1"><span>Adelanto <b id="calc-a"></b></span></i>
+              <i class="seg-b" style="flex:1"><span>Saldo <b id="calc-b"></b></span></i>
+            </div></div>
+          <div class="flujo2__fila"><span class="flujo2__k">Va a</span>
+            <div class="flujo2__bar">
+              <i class="seg-cos" id="seg-cos"><span>Costos</span></i>
+              <i class="seg-gan" id="seg-gan"><span>Ganancia <b id="calc-g"></b></span></i>
+            </div></div>
+        </div>
+
+        <ul class="aros" id="calc-socios" aria-label="Ganancia de cada socio"></ul>
+        <p class="calc__ayuda">Costos: equipo, materiales, movilidad e instaladores (supuesto, ajústalo). Ganancia antes de impuestos, repartida según la parte de cada uno.</p>
+      </div>
     </div>
 
   </div>
@@ -960,7 +1245,7 @@ footer{margin-top:40px;border-top:1px solid var(--ink);padding:16px 0 54px;opaci
   </div>
 
   <details class="acc">
-    <summary>Candidatos de nombre <span class="acc__s">· 8 opciones y su riesgo en INDECOPI</span></summary>
+    <summary>Candidatos de nombre <span class="acc__s">8 opciones y su riesgo en INDECOPI</span></summary>
     <div class="acc__in">
       <div class="obs" style="margin-top:0;margin-bottom:20px">
         <b>Artexa queda fuera</b>
@@ -983,7 +1268,7 @@ footer{margin-top:40px;border-top:1px solid var(--ink);padding:16px 0 54px;opaci
   </details>
 
   <details class="acc">
-    <summary>Los socios y el reparto <span class="acc__s">· 26.66 % × 3 + 20 %</span></summary>
+    <summary>Los socios y el reparto <span class="acc__s">26.66 % × 3 + 20 %</span></summary>
     <div class="acc__in">
       <div class="socios">
         <ul class="socios__lista" id="socios-lista"></ul>
@@ -997,14 +1282,14 @@ footer{margin-top:40px;border-top:1px solid var(--ink);padding:16px 0 54px;opaci
   </details>
 
   <details class="acc">
-    <summary>Instrumentos de arranque <span class="acc__s">· subtotal S/ 1,550</span></summary>
+    <summary>Instrumentos de arranque <span class="acc__s">subtotal S/ 1,550</span></summary>
     <div class="acc__in">
       <div class="bars" id="bars-inst"></div>
     </div>
   </details>
 
   <details class="acc">
-    <summary>El precio por zona <span class="acc__s">· por qué conviene sumar Lima</span></summary>
+    <summary>El precio por zona <span class="acc__s">por qué conviene sumar Lima</span></summary>
     <div class="acc__in">
       <table>
         <thead><tr><th>Zona</th><th>Referencia</th><th>Observación</th></tr></thead>
@@ -1019,7 +1304,7 @@ footer{margin-top:40px;border-top:1px solid var(--ink);padding:16px 0 54px;opaci
   </details>
 
   <details class="acc">
-    <summary>Cómo anotar la próxima reunión <span class="acc__s">· para mantener el archivo</span></summary>
+    <summary>Cómo anotar la próxima reunión <span class="acc__s">para mantener el archivo</span></summary>
     <div class="acc__in">
       <p style="font-size:.92em;color:var(--ink-2)">
         Todo vive en el arreglo <code>REUNIONES</code>, al inicio del <code>&lt;script&gt;</code>.
@@ -1452,6 +1737,12 @@ const SECCIONES = [
     if (nav.classList.contains('abierto') && !nav.contains(e.target)) cerrar();
   });
   addEventListener('scroll', () => { if (nav.classList.contains('abierto')) cerrar(); }, { passive:true });
+  let quieto;
+  addEventListener('scroll', () => {
+    nav.classList.add('mueve');
+    clearTimeout(quieto);
+    quieto = setTimeout(() => nav.classList.remove('mueve'), 700);
+  }, { passive:true });
 
   const tick = () => {
     const h = document.documentElement;
@@ -1662,25 +1953,97 @@ pintaPanel();
 
 /* --- de un vistazo --- */
 (function(){
-  /* acuerdos de todas las reuniones */
+  /* ---- acuerdos: anillo + cuatro estados que llevan al filtro de la reunión ---- */
   const todos = REUNIONES.flatMap(r => [...(r.decisiones||[]), ...(r.cabos||[])]);
   const c = { ok:0, wip:0, open:0, warn:0 };
   todos.forEach(x => c[x.e]++);
-  $('ac-sub').textContent = todos.length + ' puntos registrados en ' +
-    REUNIONES.filter(r => r.estado !== 'programada').length + ' reunión';
-  $('ac-bar').innerHTML = ['ok','wip','open','warn'].filter(k => c[k])
-    .map(k => `<i data-w="${c[k]/todos.length*100}" style="background:${COLOR[k]}"></i>`).join('');
-  $('ac-leg').innerHTML = ['ok','wip','open','warn'].filter(k => c[k])
-    .map(k => `<span>${marca(k)} <b>${c[k]}</b></span>`).join('');
+  const nReu = REUNIONES.filter(r => r.estado !== 'programada').length;
+  $('ac-sub').textContent = todos.length + ' puntos registrados en ' + nReu + (nReu === 1 ? ' reunión' : ' reuniones');
+  const R = 46, C = 2 * Math.PI * R;
+  let acum = 0;
+  $('ac-anillo').innerHTML = ['ok','wip','open','warn'].filter(k => c[k]).map(k => {
+    const l = c[k] / todos.length * C;
+    const a = `<circle class="anillo__a" cx="60" cy="60" r="${R}" stroke="${COLOR[k]}"
+      stroke-dasharray="0 ${C}" data-d="${Math.max(0,l-2.4)} ${C}" stroke-dashoffset="${-acum}"/>`;
+    acum += l; return a;
+  }).join('');
+  $('ac-n').innerHTML = c.ok + '<small>/' + todos.length + '</small>';
+  $('ac-q').textContent = 'cerrados';
+  $('ac-anillo-fig').setAttribute('aria-label', c.ok + ' de ' + todos.length + ' acuerdos cerrados');
+  const limpio = h => h.replace(/<[^>]+>/g,'');
+  $('ac-tiles').innerHTML = ['ok','wip','open','warn'].map(k => {
+    const ej = todos.find(x => x.e === k);
+    return `<button type="button" class="tile tile--${k}" data-k="${k}" ${c[k]?'':'disabled'}>
+      <span class="tile__n">${c[k]}</span>${marca(k)}
+      <span class="tile__ej">${ej ? limpio(ej.t) : 'Nada por ahora'}</span>
+      <svg class="tile__ir" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M6 3.5 10.5 8 6 12.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>`;
+  }).join('');
+  $('ac-tiles').addEventListener('click', e => {
+    const b = e.target.closest('.tile'); if (!b) return;
+    filtroAc = b.dataset.k;
+    pintaPanel();
+    $('panel').scrollIntoView({ behavior:'smooth', block:'start' });
+  });
 
-  /* inversión */
+  /* ---- costo: pantalla con el monto + columnas para elegir ---- */
   const maxI = Math.max(...INVERSION.map(x => x.soles));
-  $('bars-inv').innerHTML = INVERSION.map((x,i) => `
-    <div>
-      <div class="bar__t"><span class="bar__n">${x.t}</span><span class="bar__v">${soles(x.soles)}</span></div>
-      <p class="bar__d">${x.d}</p>
-      <div class="bar__tr"><i class="bar__f" data-w="${(x.soles/maxI*100).toFixed(1)}%" style="background:${RAMPA[i]}"></i></div>
-    </div>`).join('');
+  $('cost-cols').innerHTML = INVERSION.map((x,i) => `
+    <button type="button" role="tab" class="col" data-i="${i}" style="--h:${(x.soles/maxI*100).toFixed(1)}%;--c:${RAMPA[i]}">
+      <span class="col__v">${soles(x.soles)}</span>
+      <span class="col__tr"><i></i></span>
+      <span class="col__t">${x.t}</span>
+    </button>`).join('');
+  let actual = -1, anim;
+  const cuenta = (el, de, a, pre) => {
+    cancelAnimationFrame(anim);
+    const t0 = performance.now(), dur = 650;
+    const paso = t => {
+      const k = Math.min(1, (t - t0) / dur), e = 1 - Math.pow(1 - k, 3);
+      el.textContent = pre + Math.round(de + (a - de) * e).toLocaleString('es-PE');
+      if (k < 1) anim = requestAnimationFrame(paso);
+    };
+    anim = requestAnimationFrame(paso);
+  };
+  const elige = i => {
+    const x = INVERSION[i], antes = actual >= 0 ? INVERSION[actual].soles : 0;
+    actual = i;
+    document.querySelectorAll('#cost-cols .col').forEach((b,j) => b.setAttribute('aria-selected', j === i));
+    $('cost-tag').textContent = i === 0 ? 'Por donde se empieza' : 'Más adelante';
+    $('cost-tag').className = 'cost__tag' + (i === 0 ? ' on' : '');
+    $('cost-nom').textContent = x.t;
+    $('cost-d').textContent = x.d;
+    cuenta($('cost-monto'), antes, x.soles, 'S/ ');
+    /* cada uno pone según su participación; se reparte sobre el total real (99.98 %)
+       para que los aportes sumen exacto el monto del escenario */
+    const totPct = SOCIOS.reduce((a,s) => a + s.pct, 0);
+    const vs = SOCIOS.map(s => Math.round(x.soles * s.pct / totPct));
+    vs[0] += x.soles - vs.reduce((a,b) => a + b, 0);   /* el sol de redondeo lo absorbe el primero */
+    SOCIOS.forEach((s,i) => {
+      const v = vs[i];
+      const el = document.querySelector('[data-ap="'+i+'"]');
+      cuenta2(el, +(el.dataset.v || 0), v);
+      el.dataset.v = v;
+    });
+  };
+  /* contador propio para cada aporte (el de arriba se reserva para el monto grande) */
+  const cuenta2 = (el, de, a) => {
+    const t0 = performance.now(), dur = 650;
+    const paso = t => {
+      const k = Math.min(1, (t - t0) / dur), e = 1 - Math.pow(1 - k, 3);
+      el.textContent = 'S/ ' + Math.round(de + (a - de) * e).toLocaleString('es-PE');
+      if (k < 1) requestAnimationFrame(paso);
+    };
+    requestAnimationFrame(paso);
+  };
+  const maxPct = Math.max(...SOCIOS.map(s => s.pct));
+  $('cost-aportes').innerHTML = SOCIOS.map((s,i) => `
+    <li><i class="aportes__av" style="background:${RAMPA[i]}">${s.nombre[0]}</i>
+      <span class="aportes__n">${s.nombre}<small>${s.pct.toFixed(2).replace(/\.00$/,'')} %</small></span>
+      <span class="aportes__b"><i style="width:${(s.pct/maxPct*100).toFixed(1)}%"></i></span>
+      <b data-ap="${i}">S/ 0</b></li>`).join('');
+  $('cost-cols').addEventListener('click', e => { const b = e.target.closest('.col'); if (b) elige(+b.dataset.i); });
+  elige(0);
 
   /* instrumentos */
   const maxN = Math.max(...INSTRUMENTOS.map(x => x.soles));
@@ -1693,30 +2056,76 @@ pintaPanel();
     `<div class="bar__t" style="border-top:1px solid var(--rule);padding-top:13px;margin-top:4px">
        <span class="lbl">Subtotal</span><span class="bar__v" style="font-size:18px">${soles(tot)}</span></div>`;
 
-  /* ruta */
-  $('ruta').innerHTML = RUTA.map((h,i) => `
-    <div class="hito hito--${h.e==='ok'?'ok':h.e==='wip'?'wip':'todo'}">
-      <span class="hito__via" aria-hidden="true"></span>
-      <span class="hito__p"><svg width="17" height="17" viewBox="0 0 16 16" fill="none">${ICO_RUTA[h.ico]||''}</svg></span>
-      <div class="hito__n">0${i+1}</div>
-      <div class="hito__t">${h.t}</div>
-      <div class="hito__e">${marca(h.e, h.e==='wip'?'En curso':'Pendiente')}</div>
-      <div class="viz__pie" style="margin-top:6px;font-size:.78em">${h.d}</div>
-    </div>`).join('');
-
-  /* flujo del dinero */
-  $('flujo').innerHTML = FLUJO.map(f => `
-    <li class="pp ${f.pct ? 'pp--pago' : ''}">
-      <span class="pp__box">
-        <span class="pp__n ${f.pct ? 'pp__n--pago' : ''}">
-          ${f.pct ? '50<small>%</small>' : `<svg width="18" height="18" viewBox="0 0 16 16" fill="none">${ICONOS[f.ico]||''}</svg>`}
-        </span>
-      </span>
-      <span class="pp__txt">
-        <span class="pp__t">${f.t}</span>
-        <span class="pp__s">${f.s}</span>
-      </span>
+  /* ---- ruta: estaciones con su estado ---- */
+  const n = { ok:0, wip:0, open:0 };
+  RUTA.forEach(h => n[h.e] = (n[h.e]||0) + 1);
+  $('ruta-res').innerHTML =
+    `<span>${marca('ok','Hecho')} <b>${n.ok||0}</b></span><span>${marca('wip','En curso')} <b>${n.wip||0}</b></span><span>${marca('open','Pendiente')} <b>${n.open||0}</b></span>`;
+  /* la línea solo se llena con lo ya hecho; lo que está en curso late, sin fingir avance */
+  const ultimo = RUTA.reduce((m,h,i) => h.e === 'ok' ? i : m, -1);
+  $('ruta').style.setProperty('--n', RUTA.length);
+  $('ruta').style.setProperty('--avance', ultimo < 0 ? 0 : ultimo / (RUTA.length - 1));
+  $('ruta').innerHTML = `<span class="proc__via" aria-hidden="true"><i></i></span>` + RUTA.map((h,i) => `
+    <li class="paso ${h.e==='ok'?'hecho':h.e==='wip'?'ahora pulsa':''}">
+      <span class="paso__i"><svg viewBox="0 0 16 16" fill="none" aria-hidden="true">${ICO_RUTA[h.ico]||''}</svg></span>
+      <span class="paso__tx"><span class="paso__n">${String(i+1).padStart(2,'0')}</span>
+        <span class="paso__t">${h.t}</span><span class="paso__d">${h.d}</span>
+        <span class="paso__e">${marca(h.e, h.e==='ok'?'Hecho':h.e==='wip'?'En curso':'Pendiente')}</span></span>
     </li>`).join('');
+
+  /* ---- cobro: cuánto entra, cuánto se va en costos y cuánto le queda a cada socio ---- */
+  const rango = $('calc-r'), rc = $('calc-c');
+  const totPct = SOCIOS.reduce((a,x) => a + x.pct, 0);
+  /* un aro por socio: se llena con su parte de la ganancia */
+  const RA = 30, CA = 2 * Math.PI * RA;
+  $('calc-socios').innerHTML = SOCIOS.map((x,i) => `
+    <li class="aro">
+      <span class="aro__g">
+        <svg viewBox="0 0 72 72" aria-hidden="true">
+          <circle cx="36" cy="36" r="${RA}" class="aro__f"/>
+          <circle cx="36" cy="36" r="${RA}" class="aro__v" stroke="${RAMPA[i]}" transform="rotate(-90 36 36)"
+            stroke-dasharray="${(x.pct/100*CA).toFixed(2)} ${CA.toFixed(2)}"/>
+        </svg>
+        <span class="aro__i ava" data-tono="${RAMPA[i].slice(6,8)}" style="--c:${RAMPA[i]}"><span class="ava__i">${x.nombre[0]}</span></span>
+      </span>
+      <b data-g="${i}">S/ 0</b>
+      <span class="aro__n">${x.nombre}<small>${x.pct.toFixed(2).replace(/\.00$/,'')} %</small></span>
+    </li>`).join('');
+  const pinta = (el, v) => {          /* el número se desliza hasta su nuevo valor */
+    const de = +(el.dataset.v || 0); el.dataset.v = v;
+    const t0 = performance.now();
+    const paso = t => { const k = Math.min(1,(t-t0)/380), e = 1-Math.pow(1-k,3);
+      el.textContent = soles(Math.round(de + (v-de)*e)); if (k < 1) requestAnimationFrame(paso); };
+    requestAnimationFrame(paso);
+  };
+  const pinRango = r => r.style.setProperty('--p', ((r.value - r.min) / (r.max - r.min) * 100) + '%');
+  const calc = () => {
+    const v = +rango.value, cp = +rc.value;
+    const a = Math.round(v / 2), cos = Math.round(v * cp / 100), gan = v - cos;
+    $('calc-tot').textContent = soles(v);
+    $('calc-a').textContent = soles(a);
+    $('calc-b').textContent = soles(v - a);
+    $('calc-cos').textContent = soles(cos);
+    $('calc-cp').textContent = cp + ' %';
+    $('calc-g').textContent = soles(gan);
+    $('seg-cos').style.flex = cp; $('seg-gan').style.flex = 100 - cp;
+    const vs = SOCIOS.map(x => Math.round(gan * x.pct / totPct));
+    vs[0] += gan - vs.reduce((p,q) => p + q, 0);
+    vs.forEach((g,i) => pinta(document.querySelector('[data-g="'+i+'"]'), g));
+    pinRango(rango); pinRango(rc);
+  };
+  rango.addEventListener('input', calc);
+  rc.addEventListener('input', calc);
+  calc();
+  /* el detalle de los momentos de cobro vive en el proceso de cada servicio */
+
+  /* el anillo se dibuja cuando aparece en pantalla */
+  const dibuja = () => document.querySelectorAll('.anillo__a').forEach((a,i) =>
+    setTimeout(() => a.setAttribute('stroke-dasharray', a.dataset.d), 100 + i * 160));
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver(es => { if (es.some(e => e.isIntersecting)) { dibuja(); io.disconnect(); } }, { threshold:.3 });
+    io.observe($('ac-anillo-fig'));
+  } else dibuja();
 })();
 
 /* --- pestañas genéricas --- */
@@ -1872,7 +2281,7 @@ function pestanas(seg, paneles, alCambiar){
   lista.addEventListener('focusout', () => foco(null));
   $('tbl-nombres').innerHTML = NOMBRES.map(n => `
     <tr><td data-l="Nombre"><strong>${n.t}</strong></td><td data-l="Por qué">${n.por}</td>
-      <td data-l="En INDECOPI">${marca(n.e,n.etq)}<br>${n.ind}</td></tr>`).join('');
+      <td data-l="En INDECOPI">${marca(n.e,n.etq)}<br><span class="ind-n">${n.ind}</span></td></tr>`).join('');
   $('pasos-nombre').innerHTML = PASOS_NOMBRE.map((p,i) =>
     `<li><span class="agenda__n">${i+1}</span><span>${p}</span></li>`).join('');
 })();
