@@ -329,31 +329,130 @@ section{padding:54px 0;scroll-margin-top:20px}
   @keyframes viajaV{0%{top:-4px;opacity:0}15%{opacity:1}85%{opacity:1}100%{top:100%;opacity:0}}
 }
 
-/* ===================== RUBROS ===================== */
-.rubros{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
-/* en el celular los tres frentes se deslizan de lado en vez de apilarse */
-@media (max-width:780px){
-  .rubros{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;
-    margin:0 -18px;padding:0 18px 2px;scroll-padding:0 18px;scrollbar-width:none;
-    -webkit-overflow-scrolling:touch}
-  .rubros::-webkit-scrollbar{display:none}
-  .rubro{flex:0 0 78%;scroll-snap-align:start}
+/* ===================== SERVICIOS ===================== */
+.servs{position:relative}
+.serv{display:none;border:1px solid var(--rule);border-radius:18px;background:var(--paper-2);overflow:hidden}
+.serv.on{display:block;animation:fade .35s ease}
+.serv__top{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:0}
+.serv__fig{position:relative;border-right:1px solid var(--rule);
+  background:radial-gradient(120% 90% at 20% 10%,var(--accent-soft),transparent 60%),var(--paper-3)}
+.sv-fig{display:block;width:100%;height:100%;min-height:230px}
+.serv__tx{padding:24px 26px 22px}
+.serv__tx h3{font-size:clamp(20px,2.6vw,24px);font-weight:700;letter-spacing:-.02em;margin-bottom:8px}
+.serv__d{font-size:1em;line-height:1.55;color:var(--ink);margin:0 0 16px}
+.serv__k{display:block;font-family:'Inter',system-ui,sans-serif;font-size:10.5px;font-weight:700;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--ink-3);margin-bottom:7px}
+.serv__chips{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:15px}
+.serv__chips span{font-family:'Inter',system-ui,sans-serif;font-size:12px;font-weight:600;color:var(--accent);
+  background:var(--accent-soft);border-radius:20px;padding:4px 11px}
+.serv__inc{list-style:none;margin:0 0 14px;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:6px 14px}
+.serv__inc li{display:flex;align-items:flex-start;gap:7px;font-family:'Inter',system-ui,sans-serif;font-size:13px;
+  line-height:1.35;color:var(--ink-2)}
+.serv__inc svg{flex:0 0 15px;width:15px;height:15px;color:var(--accent);margin-top:1px}
+.serv__nota{font-size:.84em;font-style:italic;color:var(--ink-3);margin:0;line-height:1.5}
+
+/* proceso */
+.proc{border-top:1px solid var(--rule);padding:20px 26px 24px;background:var(--paper)}
+.proc__h{display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap;margin-bottom:16px}
+.proc__h .serv__k{margin:0}
+.proc__pago{font-family:'Inter',system-ui,sans-serif;font-size:12px;color:var(--ink-3)}
+.proc__pago b{color:var(--accent);font-weight:700}
+.proc__l{position:relative;list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(var(--n),1fr);gap:10px}
+.proc__via{position:absolute;left:calc(100% / var(--n) / 2);right:calc(100% / var(--n) / 2);top:21px;height:3px;
+  border-radius:3px;background:var(--rule)}
+.proc__via i{display:block;height:100%;width:calc(var(--avance,0) * 100%);border-radius:3px;
+  background:linear-gradient(90deg,var(--r2),var(--accent));transition:width .9s cubic-bezier(.4,0,.2,1)}
+.paso{position:relative;display:flex;flex-direction:column;align-items:center;text-align:center;gap:9px}
+.paso__i{position:relative;z-index:1;width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  background:var(--paper);border:1.5px solid var(--rule);color:var(--ink-3);
+  transition:background .4s,border-color .4s,color .4s,transform .45s cubic-bezier(.3,1.5,.5,1),box-shadow .4s}
+.paso__i svg{width:19px;height:19px}
+.paso__i em{position:absolute;top:-7px;right:-12px;font-style:normal;font-family:'Inter',system-ui,sans-serif;
+  font-size:9.5px;font-weight:700;color:#fff;background:var(--r4);border:2px solid var(--paper);border-radius:10px;padding:1px 5px}
+.paso.hecho .paso__i{background:var(--accent);border-color:var(--accent);color:#fff}
+:root[data-theme="dark"] .paso.hecho .paso__i{color:#0f2a30}
+.paso.ahora .paso__i{border-color:var(--accent);color:var(--accent);transform:scale(1.12);
+  box-shadow:0 0 0 6px var(--accent-soft)}
+.paso__tx{display:flex;flex-direction:column;gap:2px}
+.paso__n{font-family:'Inter',system-ui,sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;color:var(--ink-3)}
+.paso__t{font-family:'Inter',system-ui,sans-serif;font-size:13px;font-weight:700;color:var(--ink);line-height:1.25}
+.paso__d{font-size:.8em;color:var(--ink-2);line-height:1.4}
+.paso.ahora .paso__t{color:var(--accent)}
+
+@media (max-width:760px){
+  .serv__top{grid-template-columns:1fr}
+  .serv__fig{border-right:none;border-bottom:1px solid var(--rule)}
+  .sv-fig{min-height:0;height:auto;max-height:210px}
+  .serv__tx{padding:18px 18px 18px}
+  .serv__d{font-size:.95em}
+  .serv__inc{grid-template-columns:1fr 1fr;gap:6px 10px}
+  .proc{padding:18px}
+  /* en vertical: línea a la izquierda, texto al lado */
+  .proc__l{grid-template-columns:1fr;gap:14px}
+  .proc__via{left:20px;right:auto;top:22px;bottom:22px;width:3px;height:auto}
+  .proc__via i{width:100%;height:calc(var(--avance,0) * 100%);
+    background:linear-gradient(180deg,var(--r2),var(--accent));transition:height .9s cubic-bezier(.4,0,.2,1)}
+  .paso{flex-direction:row;align-items:center;text-align:left;gap:14px}
+  .paso__i{flex:0 0 44px}
+  .paso__tx{gap:1px}
 }
-.puntos{display:none}
-@media (max-width:780px){
-  .puntos{display:flex;justify-content:center;gap:6px;margin-top:14px}
-  .puntos i{width:6px;height:6px;border-radius:3px;background:var(--rule-2,var(--ink-3));opacity:.35;
-    transition:width .3s cubic-bezier(.3,1.15,.45,1),opacity .3s,background .3s}
-  .puntos i.on{width:18px;opacity:1;background:var(--accent)}
-}
-.rubro{border:1px solid var(--rule);border-radius:5px;overflow:hidden;background:var(--paper-2);display:flex;flex-direction:column}
-.rubro__fig{display:block;width:100%;height:auto;border-bottom:1px solid var(--rule);
-  background-color:var(--paper-3);
-  background-image:linear-gradient(var(--rule) 1px,transparent 1px),linear-gradient(90deg,var(--rule) 1px,transparent 1px);
-  background-size:13px 13px}
-.rubro__in{padding:16px 17px 18px;flex:1}
-.rubro__in h4{font-size:16px;font-weight:600;margin-bottom:6px}
-.rubro__in p{font-size:.84em;color:var(--ink-2);line-height:1.55;margin-bottom:10px}
+
+/* ---- figuras de servicio ---- */
+.sv-halo{fill:var(--accent);opacity:.07}
+.sv-cuerpo{stroke:var(--rule);stroke-width:1.2;filter:drop-shadow(0 6px 10px rgba(28,26,23,.12))}
+:root[data-theme="dark"] .sv-cuerpo{filter:drop-shadow(0 6px 12px rgba(0,0,0,.5))}
+.sv-ranura{fill:var(--rule)}
+.sv-ranura-l{stroke:var(--rule);stroke-width:3;stroke-linecap:round}
+.sv-llave{fill:var(--paper);stroke:var(--rule);stroke-width:1.2}
+.sv-hueco{fill:var(--ink-3);opacity:.6}
+.sv-hueco-l{stroke:var(--ink-3);stroke-width:2.4;stroke-linecap:round;opacity:.6}
+.sv-palanca{fill:var(--ink-3);transform-box:fill-box;animation:palanca 3.6s cubic-bezier(.5,1.6,.5,1) infinite}
+@keyframes palanca{0%,8%{transform:translateY(0);fill:var(--ink-3)}16%,86%{transform:translateY(-16px);fill:var(--accent)}94%,100%{transform:translateY(0);fill:var(--ink-3)}}
+.sv-led{fill:var(--rule);animation:led 3.6s ease infinite}
+@keyframes led{0%,10%{fill:var(--rule)}18%,86%{fill:#4fd18b}94%,100%{fill:var(--rule)}}
+.sv-led--fijo{fill:#4fd18b;animation:latido 2s ease-in-out infinite}
+.sv-cable{fill:none;stroke:var(--rule);stroke-width:5;stroke-linecap:round}
+.sv-pulso{fill:none;stroke:var(--accent);stroke-width:5;stroke-linecap:round;stroke-dasharray:14 140;
+  animation:pulso 1.8s linear infinite}
+.sv-pulso--frio{stroke:var(--r2)}
+@keyframes pulso{from{stroke-dashoffset:154}to{stroke-dashoffset:0}}
+.sv-vidrio{fill:#fff6d6;stroke:#e2b84a;stroke-width:1.6}
+:root[data-theme="dark"] .sv-vidrio{fill:#fde9a6}
+.sv-rosca{fill:var(--ink-3)}
+.sv-filamento{fill:none;stroke:#d99a17;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.sv-brillo{transform-box:fill-box;transform-origin:center;animation:brillo 3.6s ease infinite}
+@keyframes brillo{0%,30%{opacity:0;transform:scale(.6)}42%,86%{opacity:1;transform:scale(1)}96%,100%{opacity:0;transform:scale(.6)}}
+
+.sv-aleta-w{transform-box:fill-box;transform-origin:center top;animation:aleta 4s ease-in-out infinite}
+.sv-aleta{fill:var(--ink-3);opacity:.5}
+@keyframes aleta{0%,100%{transform:rotate(-6deg)}50%{transform:rotate(8deg)}}
+.sv-viento{fill:none;stroke-width:3;stroke-linecap:round;stroke-dasharray:22 26;animation:viento 2.2s linear infinite}
+@keyframes viento{from{stroke-dashoffset:96}to{stroke-dashoffset:0}}
+.sv-rejilla{fill:var(--paper-3);stroke:var(--rule);stroke-width:1.4}
+.sv-helice{transform-box:fill-box;transform-origin:center;animation:gira 1.4s linear infinite}
+.sv-pala{fill:var(--ink-3);opacity:.55}
+.sv-cobre{fill:none;stroke:#c98b5a;stroke-width:4;stroke-linecap:round;opacity:.75}
+.sv-pill{fill:var(--paper);stroke:var(--rule);filter:drop-shadow(0 4px 8px rgba(28,26,23,.12))}
+.sv-temp{font-family:'Inter',system-ui,sans-serif;font-size:15px;font-weight:700;fill:var(--accent)}
+
+.sv-brazo{stroke:var(--ink-3);stroke-width:4;stroke-linecap:round}
+.sv-cam-gira{transform-origin:0 0;animation:camara 6s ease-in-out infinite}
+@keyframes camara{0%,100%{transform:rotate(-10deg)}50%{transform:rotate(14deg)}}
+.sv-lente-a{fill:var(--ink);opacity:.85}
+.sv-lente{fill:var(--r2)}
+.sv-rec{fill:#e5484d;animation:latido 1.2s ease-in-out infinite}
+.sv-tel{fill:var(--paper);stroke:var(--rule);stroke-width:1.4;filter:drop-shadow(0 8px 14px rgba(28,26,23,.16))}
+:root[data-theme="dark"] .sv-tel{fill:#2b2b28}
+.sv-escena{fill:#fff;opacity:.22}
+.sv-sol{fill:#fff;opacity:.4}
+.sv-vivo-bg{fill:rgba(0,0,0,.35)}
+.sv-vivo{font-family:'Inter',system-ui,sans-serif;font-size:4.6px;font-weight:700;fill:#fff;letter-spacing:.04em}
+.sv-onda{fill:none;stroke:var(--accent);stroke-width:2.4;stroke-linecap:round;opacity:0;animation:onda 2.1s ease-out infinite}
+@keyframes onda{0%{opacity:0}30%{opacity:.85}100%{opacity:0}}
+.sv-escudo{transform-box:fill-box;transform-origin:center;animation:escudo 3.6s cubic-bezier(.3,1.6,.5,1) infinite}
+@keyframes escudo{0%,20%{transform:scale(0);opacity:0}32%,85%{transform:scale(1);opacity:1}100%{transform:scale(0);opacity:0}}
+.sv-escudo-f{fill:#3dbb74}
+.sv-escudo-c{fill:none;stroke:#fff;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
 
 /* ===================== PENDIENTES ===================== */
 .frentes{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--rule);border:1px solid var(--rule);border-radius:5px;overflow:hidden}
@@ -463,6 +562,71 @@ tfoot td{border-top:1px solid var(--rule-2);border-bottom:none;font-weight:600;c
 .sw{display:inline-block;width:9px;height:9px;border-radius:2px;margin-right:8px}
 .segbar{display:flex;height:10px;gap:2px;margin-bottom:18px;border-radius:2px;overflow:hidden}
 .segbar i{display:block}
+
+/* ---- socios: avatares + dona ---- */
+.socios{display:grid;grid-template-columns:minmax(0,1fr) 210px;gap:28px;align-items:center;margin:4px 0 6px}
+.socios__lista{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px}
+.socio{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:14px;align-items:center;
+  padding:11px 14px 11px 11px;border-radius:14px;border:1px solid transparent;cursor:default;outline:none;
+  transition:background .25s,border-color .25s,transform .25s cubic-bezier(.3,1.15,.45,1)}
+.socio.on,.socio:focus-visible{background:var(--paper);border-color:var(--rule);transform:translateX(3px)}
+.ava{position:relative;width:46px;height:46px;flex:0 0 auto}
+.ava__i{display:flex;align-items:center;justify-content:center;width:100%;height:100%;border-radius:50%;
+  background:var(--c);color:#fff;font-family:'Inter',system-ui,sans-serif;font-size:18px;font-weight:700;
+  letter-spacing:-.02em;
+  box-shadow:inset 0 -6px 12px rgba(0,0,0,.14),inset 0 2px 0 rgba(255,255,255,.22),0 3px 10px rgba(28,26,23,.14)}
+.ava__b{position:absolute;right:-4px;bottom:-3px;width:22px;height:22px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  background:var(--paper);color:var(--ink);border:1px solid var(--rule);
+  box-shadow:0 2px 6px rgba(28,26,23,.14)}
+.ava__b svg{width:13px;height:13px}
+.socio[data-prof="mec"].on .ava__b svg{animation:gira 2.4s linear infinite}
+.socio[data-prof="tec"].on .ava__b svg{animation:ajusta .9s ease-in-out infinite alternate}
+.socio[data-prof="sis"].on .ava__b svg{animation:late .9s ease-in-out infinite alternate}
+.ava__b svg{transform-origin:center}
+@keyframes ajusta{from{transform:rotate(-14deg)}to{transform:rotate(14deg)}}
+@keyframes late{from{transform:scale(1)}to{transform:scale(1.18)}}
+.ava__i{text-shadow:0 1px 2px rgba(0,0,0,.25)}
+/* el tono más claro de la rampa en modo oscuro lleva la inicial oscura */
+:root[data-theme="dark"] .ava[data-tono="r1"] .ava__i,
+:root[data-theme="dark"] .ava[data-tono="r2"] .ava__i{color:#102a30;text-shadow:none}
+.socios__lista{max-width:640px}
+@keyframes gira{to{transform:rotate(360deg)}}
+.socio__tx{display:flex;flex-direction:column;gap:2px;min-width:0}
+.socio__n{font-size:15.5px;font-weight:700;color:var(--ink);display:flex;align-items:baseline;gap:9px;flex-wrap:wrap}
+.socio__z{font-family:'Inter',system-ui,sans-serif;font-size:10.5px;font-weight:600;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--ink-3)}
+.socio__p{font-family:'Inter',system-ui,sans-serif;font-size:12px;font-weight:600;color:var(--accent);
+  display:flex;align-items:center;gap:7px;flex-wrap:wrap}
+.socio__q{font-style:normal;font-size:9.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;
+  color:var(--ink-3);border:1px dashed var(--ink-3);border-radius:20px;padding:1px 7px;opacity:.8}
+.socio__f{font-size:.84em;color:var(--ink-2);line-height:1.45}
+.socio__pct{font-family:'Inter',system-ui,sans-serif;font-size:19px;font-weight:700;letter-spacing:-.02em;
+  color:var(--ink);font-variant-numeric:tabular-nums;white-space:nowrap}
+.socio__pct small{font-size:11px;font-weight:600;color:var(--ink-3);margin-left:1px}
+
+.dona{position:relative;margin:0;width:100%;max-width:210px;aspect-ratio:1;justify-self:end}
+.dona svg{display:block;width:100%;height:100%;overflow:visible}
+.dona__a{fill:none;stroke-width:15;cursor:pointer;
+  transition:stroke-dasharray .9s cubic-bezier(.3,.9,.3,1),opacity .25s,stroke-width .25s}
+.dona__a.apaga{opacity:.22}
+.dona__a:not(.apaga):hover{stroke-width:17}
+.dona__c{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  pointer-events:none;text-align:center}
+.dona__c b{font-family:'Inter',system-ui,sans-serif;font-size:24px;font-weight:700;letter-spacing:-.03em;
+  color:var(--ink);font-variant-numeric:tabular-nums}
+.dona__c span{font-family:'Inter',system-ui,sans-serif;font-size:11px;font-weight:600;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--ink-3);margin-top:2px}
+
+@media (max-width:700px){
+  .socios{grid-template-columns:1fr;gap:18px}
+  .dona{order:-1;justify-self:center;max-width:170px}
+  .socio{padding:10px 8px;margin:0 -8px;gap:12px}
+  .socio.on{transform:none}
+  .ava{width:40px;height:40px}
+  .ava__i{font-size:16px}
+  .socio__pct{font-size:16px}
+}
 .cobro{display:flex;height:50px;gap:2px;border-radius:4px;overflow:hidden;margin-bottom:16px}
 .cobro__s{display:flex;flex-direction:column;justify-content:center;padding:0 15px}
 .cobro__s--a{background:var(--r2);color:#10272c}
@@ -771,11 +935,11 @@ footer{margin-top:40px;border-top:1px solid var(--ink);padding:16px 0 54px;opaci
 <!-- ======================= RUBROS ======================= -->
 <section id="rubros-sec">
   <div class="sec-head">
-    <h2>Qué se ofrece</h2>
-    <span class="nota">Tres frentes que el equipo ya sabe ejecutar</span>
+    <h2>Qué se va a ofrecer</h2>
+    <span class="nota">Tres servicios, un mismo equipo y la misma forma de trabajar</span>
   </div>
-  <div class="rubros rv" id="rubros"></div>
-  <div class="puntos" id="rubros-pts" aria-hidden="true"></div>
+  <div class="seg" id="seg-serv" role="tablist" aria-label="Servicios"></div>
+  <div class="servs rv" id="rubros"></div>
 </section>
 
 <!-- ======================= PENDIENTES ======================= -->
@@ -821,12 +985,13 @@ footer{margin-top:40px;border-top:1px solid var(--ink);padding:16px 0 54px;opaci
   <details class="acc">
     <summary>Los socios y el reparto <span class="acc__s">· 26.66 % × 3 + 20 %</span></summary>
     <div class="acc__in">
-      <div class="segbar" id="segbar" role="img" aria-label="Reparto de participaciones"></div>
-      <table>
-        <thead><tr><th>Socio</th><th>Zona</th><th>Frente</th><th class="n">Parte</th></tr></thead>
-        <tbody id="tbl-socios"></tbody>
-        <tfoot><tr><td colspan="3">Total</td><td class="n">99.98 %</td></tr></tfoot>
-      </table>
+      <div class="socios">
+        <ul class="socios__lista" id="socios-lista"></ul>
+        <figure class="dona" id="dona" role="img" aria-label="Reparto de participaciones entre los cuatro socios">
+          <svg viewBox="0 0 120 120" aria-hidden="true"><g id="dona-arcos" transform="rotate(-90 60 60)"></g></svg>
+          <figcaption class="dona__c"><b id="dona-n">99.98 %</b><span id="dona-q">4 socios</span></figcaption>
+        </figure>
+      </div>
       <p class="viz__pie">Falta cuadrar el 0.02 % al momento de la constitución. Revisable según lo que cada uno invierta y genere.</p>
     </div>
   </details>
@@ -904,12 +1069,23 @@ footer{margin-top:40px;border-top:1px solid var(--ink);padding:16px 0 54px;opaci
    (ej. 'Huarango') y la cabecera y el título de la pestaña se actualizan solos. */
 const EMPRESA = null;
 
+/* prof: 'mec' ingeniería mecánica · 'sis' ingeniería de sistemas · 'tec' técnico en mecánica
+   confirmar: true deja una marca discreta hasta que el dato esté verificado */
 const SOCIOS = [
-  { nombre:'Aldair',   zona:'Lima',    pct:26.66, frente:'Cálculos, cotizaciones y proveedores' },
-  { nombre:'Yerson',   zona:'Ica',     pct:26.66, frente:'Instalación · seguridad electrónica y electricidad' },
-  { nombre:'Leonardo', zona:'Chincha', pct:26.66, frente:'Instalación · contactos en empresas' },
-  { nombre:'Yeiser',   zona:'Lima',    pct:20.00, frente:'Dominio, web, redes y tema legal' }
+  { nombre:'Aldair',   zona:'Lima',    pct:26.66, prof:'mec', titulo:'Ing. mecánico',
+    frente:'Cálculos, cotizaciones y proveedores' },
+  { nombre:'Yerson',   zona:'Ica',     pct:26.66, prof:'mec', titulo:'Ing. mecánico', confirmar:true,
+    frente:'Instalación · seguridad electrónica y electricidad' },
+  { nombre:'Leonardo', zona:'Chincha', pct:26.66, prof:'tec', titulo:'Técnico en mecánica',
+    frente:'Instalación · contactos en empresas' },
+  { nombre:'Yeiser',   zona:'Lima',    pct:20.00, prof:'sis', titulo:'Ing. de sistemas',
+    frente:'Dominio, web, redes y tema legal' }
 ];
+const ICO_PROF = {
+  mec:'<circle cx="8" cy="8" r="2.1" stroke="currentColor" stroke-width="1.5"/><path d="M8 1.8v2M8 12.2v2M1.8 8h2M12.2 8h2M3.6 3.6l1.4 1.4M11 11l1.4 1.4M3.6 12.4 5 11M11 5l1.4-1.4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><circle cx="8" cy="8" r="4.4" stroke="currentColor" stroke-width="1.5"/>',
+  sis:'<path d="M5.6 4.4 2.2 8l3.4 3.6M10.4 4.4 13.8 8l-3.4 3.6M9.2 3 6.8 13" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>',
+  tec:'<path d="M10.6 2.3a3.3 3.3 0 0 0-3.9 4.3L2.6 10.7a1.5 1.5 0 0 0 2.1 2.1l4.1-4.1a3.3 3.3 0 0 0 4.3-3.9l-2 2-1.9-.4-.4-1.9 2-2Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>'
+};
 
 const REUNIONES = [
   {
@@ -967,14 +1143,57 @@ const REUNIONES = [
   }
 ];
 
+/* servicios: lo que se le ofrece al cliente, en palabras que entienda,
+   y cómo va a ser el trabajo de principio a fin (cobro 50 / 50 incluido) */
 const RUBROS = [
-  { fig:'electrica', t:'Instalación eléctrica', e:'ok', etq:'Activo',
-    d:'Tableros, circuitos y puntos de luz y fuerza. Es el rubro de Yerson y el único que da trabajo los doce meses del año.' },
-  { fig:'aire', t:'Aire acondicionado', e:'ok', etq:'Activo',
-    d:'Equipos split: montaje, línea frigorífica, vacío y pruebas. Con esto se arranca, y es donde está el boom de temporada.' },
-  { fig:'seguridad', t:'Seguridad electrónica', e:'ok', etq:'Activo',
-    d:'Cámaras y alarmas. El otro frente de Yerson, y el que abre la puerta a clientes de empresa.' }
+  { fig:'electrica', t:'Instalaciones eléctricas', corto:'Electricidad',
+    d:'Dejamos la electricidad de una casa, un local o una empresa lista y segura: desde el tablero hasta cada enchufe y cada luz.',
+    para:['Casas','Locales','Empresas'],
+    incluye:['Tableros y llaves','Circuitos nuevos','Puntos de luz','Enchufes y tomas de fuerza'],
+    nota:'Lo lleva Yerson. Es el servicio que da trabajo los doce meses del año.',
+    pasos:[
+      { ico:'visita', t:'Visita y cotización', d:'Vemos el lugar y pasamos el precio por escrito' },
+      { ico:'cash',   t:'Adelanto', d:'Cubre los materiales', pago:'50 %' },
+      { ico:'cable',  t:'Instalación', d:'Tablero, cableado y cada punto' },
+      { ico:'prueba', t:'Pruebas', d:'Todo encendido y sin fallas' },
+      { ico:'ok',     t:'Entrega y saldo', d:'Se cobra con el trabajo probado', pago:'50 %' }
+    ]},
+  { fig:'aire', t:'Aire acondicionado', corto:'Aire acondicionado',
+    d:'Instalamos equipos split para que enfríen bien desde el primer día y no den problemas después.',
+    para:['Casas','Oficinas','Negocios'],
+    incluye:['Unidad interior y exterior','Tubería de cobre','Vacío del sistema','Prueba de arranque'],
+    nota:'Con esto arranca la empresa. En verano es lo que más se pide.',
+    pasos:[
+      { ico:'visita', t:'Visita y cotización', d:'Medimos el ambiente y elegimos el equipo' },
+      { ico:'cash',   t:'Adelanto', d:'Cubre el equipo', pago:'50 %' },
+      { ico:'tool',   t:'Instalación', d:'Unidades, soportes y tubería' },
+      { ico:'frio',   t:'Vacío y pruebas', d:'Sin humedad, enfriando parejo' },
+      { ico:'ok',     t:'Entrega y saldo', d:'Se cobra con el equipo funcionando', pago:'50 %' }
+    ]},
+  { fig:'seguridad', t:'Seguridad electrónica', corto:'Seguridad',
+    d:'Ponemos cámaras y alarmas para cuidar una casa o un negocio, y se pueden ver en vivo desde el celular.',
+    para:['Casas','Tiendas','Empresas'],
+    incluye:['Cámaras','Alarmas','Cableado y grabador','Vista desde el celular'],
+    nota:'También lo lleva Yerson. Es la puerta de entrada a clientes empresa.',
+    pasos:[
+      { ico:'visita', t:'Recorrido y cotización', d:'Ubicamos los puntos que hay que cubrir' },
+      { ico:'cash',   t:'Adelanto', d:'Cubre cámaras y equipos', pago:'50 %' },
+      { ico:'cam',    t:'Instalación', d:'Cámaras, cableado y grabador' },
+      { ico:'cel',    t:'Configuración', d:'Acceso desde el celular del cliente' },
+      { ico:'ok',     t:'Entrega y saldo', d:'Se cobra con todo grabando', pago:'50 %' }
+    ]}
 ];
+const ICO_PASO = {
+  visita:'<path d="M8 14s4.6-4.1 4.6-7.6a4.6 4.6 0 0 0-9.2 0C3.4 9.9 8 14 8 14Z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/><circle cx="8" cy="6.4" r="1.7" stroke="currentColor" stroke-width="1.4"/>',
+  cash:'<rect x="2" y="4.5" width="12" height="8" rx="1.6" stroke="currentColor" stroke-width="1.4"/><circle cx="8" cy="8.5" r="2" stroke="currentColor" stroke-width="1.4"/>',
+  cable:'<path d="M9.4 1.8 4.6 8.6h3.6L6.6 14.2l5-7.2H8L9.4 1.8Z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/>',
+  tool:'<path d="M10.2 2.4a3.4 3.4 0 0 0 3.4 5.6l-6 6a1.8 1.8 0 0 1-2.6-2.6l6-6a3.4 3.4 0 0 0-.8-3Z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/>',
+  prueba:'<path d="M2.6 11.2a5.4 5.4 0 1 1 10.8 0" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/><path d="M8 11.2 10.6 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><circle cx="8" cy="11.2" r="1" fill="currentColor"/>',
+  frio:'<path d="M8 1.8v12.4M2.6 4.9l10.8 6.2M2.6 11.1l10.8-6.2" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/><path d="M6.4 2.9 8 4.3l1.6-1.4M6.4 13.1 8 11.7l1.6 1.4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>',
+  cam:'<rect x="1.8" y="4.6" width="9" height="6.8" rx="1.6" stroke="currentColor" stroke-width="1.4"/><path d="m10.8 7 3.4-1.8v5.6L10.8 9" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/>',
+  cel:'<rect x="4.4" y="1.8" width="7.2" height="12.4" rx="1.8" stroke="currentColor" stroke-width="1.4"/><path d="M7 11.8h2" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>',
+  ok:'<circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.4"/><path d="m5.3 8.2 1.9 1.9 3.6-3.8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>'
+};
 
 const INVERSION = [
   { t:'Arranque',  soles:3000,  d:'Instrumentos básicos' },
@@ -1100,44 +1319,82 @@ const ICO_RUTA={
 
 /* --- figuras de los rubros --- */
 const FIGURAS={
-  electrica:`<svg class="rubro__fig" viewBox="0 0 260 150" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Tablero eléctrico con llaves y circuitos energizados">
-    <rect class="plano--f" x="34" y="16" width="192" height="112" rx="5"/>
-    <rect class="plano plano--d" x="44" y="25" width="172" height="94" rx="3"/>
-    <path class="plano" d="M56 68h148" stroke-width="2.4" opacity=".5"/>
-    ${[58,94,130,166].map((x,i)=>`<rect class="plano--f" x="${x}" y="48" width="24" height="38" rx="3"/>
-      <rect class="${i===1?'plano--f palanca':'plano--f'}" x="${x+7}" y="53" width="10" height="13" rx="2"/>
-      <path class="plano" d="M${x+12} 86v12"/>`).join('')}
-    <path class="plano" d="M62 98h152"/>
-    <g class="viva"><path d="M62 98h152"/><path d="M106 98v44M142 98v44M178 98v44"/></g>
-    <path class="plano" d="M106 98v44M142 98v44M178 98v44"/>
-    <circle class="vivo-pt" cx="62" cy="98" r="3.4"/></svg>`,
-  aire:`<svg class="rubro__fig" viewBox="0 0 260 150" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Equipo split con flujo de aire y línea frigorífica">
-    <path class="plano plano--d" d="M26 14h208"/>
-    <rect class="plano--f" x="34" y="24" width="116" height="32" rx="9"/>
-    <path class="plano" d="M46 49h92" stroke-width="2.2" opacity=".55"/>
-    <path class="plano plano--d" d="M52 56h18M80 56h18M108 56h18"/>
-    <g class="viva viva--lenta"><path d="M58 64c0 18-6 30-16 42"/><path d="M92 64c0 22-2 36-6 48"/><path d="M126 64c0 18 6 30 16 42"/></g>
-    <path class="plano" d="M150 36h28c6 0 10 4 10 10v36"/>
-    <path class="plano" d="M150 44h20c6 0 6 4 6 8v30"/>
-    <rect class="plano--f" x="160" y="84" width="72" height="50" rx="4"/>
-    <g class="aspa"><circle class="plano" cx="196" cy="109" r="16"/>
-      <path class="plano" d="M196 95c6 5 6 9 0 14M208 104c-1 7-6 9-12 5M201 120c-7 3-10 0-11-7M184 115c-6-5-6-9 0-14"/></g>
-    <circle class="vivo-pt" cx="196" cy="109" r="2.8"/>
-    <g class="viva"><path d="M150 40h30c6 0 8 4 8 10v28"/></g></svg>`,
-  seguridad:`<svg class="rubro__fig" viewBox="0 0 260 150" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Cámara con campo de visión en barrido y bajada al grabador">
-    <path class="plano plano--d" d="M40 10v130"/>
-    <path class="plano" d="M40 44h16"/>
-    <rect class="plano--f" x="56" y="30" width="56" height="28" rx="6"/>
-    <path class="plano" d="M112 38l14-5v24l-14-5z"/>
-    <circle class="plano--f" cx="134" cy="44" r="9"/><circle class="vivo-pt" cx="134" cy="44" r="3"/>
-    <circle class="rec" cx="66" cy="38" r="3"/>
-    <g class="barrido" style="transform-origin:134px 44px">
-      <path d="M134 44 240 8v72z" fill="var(--accent)" opacity=".12"/>
-      <path class="plano plano--d" d="M134 44 240 8M134 44 240 80" opacity=".4"/></g>
-    <path class="plano" d="M70 58v42c0 6 4 10 10 10h86"/>
-    <g class="viva"><path d="M70 58v42c0 6 4 10 10 10h80"/></g>
-    <rect class="plano--f" x="166" y="96" width="62" height="32" rx="3"/>
-    <path class="plano plano--d" d="M174 105h30M174 113h44M174 121h22"/></svg>`
+  electrica:`<svg class="sv-fig" viewBox="0 0 320 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Tablero eléctrico: las llaves se encienden una a una y la corriente llega hasta el foco">
+    <defs>
+      <linearGradient id="g-tab" x1="0" y1="0" x2="0" y2="1"><stop offset="0" style="stop-color:var(--paper)"/><stop offset="1" style="stop-color:var(--paper-3)"/></linearGradient>
+      <radialGradient id="g-luz"><stop offset="0" stop-color="#ffd76a" stop-opacity=".95"/><stop offset=".55" stop-color="#ffcf4d" stop-opacity=".28"/><stop offset="1" stop-color="#ffcf4d" stop-opacity="0"/></radialGradient>
+    </defs>
+    <circle cx="70" cy="60" r="90" class="sv-halo"/>
+    <rect x="40" y="34" width="118" height="134" rx="16" fill="url(#g-tab)" class="sv-cuerpo"/>
+    <rect x="52" y="48" width="94" height="10" rx="5" class="sv-ranura"/>
+    ${[0,1,2,3].map(i=>`<g transform="translate(${58+i*22},76)">
+      <rect width="16" height="40" rx="5" class="sv-llave"/>
+      <rect x="3" y="22" width="10" height="14" rx="3.5" class="sv-palanca" style="animation-delay:${i*.45}s"/>
+      <circle cx="8" cy="7" r="2.3" class="sv-led" style="animation-delay:${i*.45}s"/></g>`).join('')}
+    <rect x="58" y="132" width="82" height="22" rx="7" class="sv-ranura"/>
+    <path d="M158 140 H214 Q226 140 226 128 V96" class="sv-cable"/>
+    <path d="M158 140 H214 Q226 140 226 128 V96" class="sv-pulso"/>
+    <g class="sv-foco">
+      <circle cx="226" cy="66" r="44" fill="url(#g-luz)" class="sv-brillo"/>
+      <path d="M214 76c-6-5-9-11-9-18a21 21 0 0 1 42 0c0 7-3 13-9 18v8h-24z" class="sv-vidrio"/>
+      <path d="M218 84h16v8a3 3 0 0 1-3 3h-10a3 3 0 0 1-3-3z" class="sv-rosca"/>
+      <path d="M220 66l6 8 6-8" class="sv-filamento"/>
+    </g>
+    <g transform="translate(262,140)"><rect width="34" height="40" rx="9" class="sv-llave"/>
+      <circle cx="12" cy="17" r="2.6" class="sv-hueco"/><circle cx="22" cy="17" r="2.6" class="sv-hueco"/>
+      <path d="M17 26v5" class="sv-hueco-l"/></g>
+  </svg>`,
+  aire:`<svg class="sv-fig" viewBox="0 0 320 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Equipo split soltando aire frío, con la unidad exterior girando">
+    <defs>
+      <linearGradient id="g-split" x1="0" y1="0" x2="0" y2="1"><stop offset="0" style="stop-color:var(--paper)"/><stop offset="1" style="stop-color:var(--paper-3)"/></linearGradient>
+      <linearGradient id="g-aire" x1="0" y1="0" x2="0" y2="1"><stop offset="0" style="stop-color:var(--r1)" stop-opacity=".9"/><stop offset="1" style="stop-color:var(--r1)" stop-opacity="0"/></linearGradient>
+    </defs>
+    <circle cx="110" cy="110" r="100" class="sv-halo"/>
+    <rect x="28" y="28" width="168" height="50" rx="18" fill="url(#g-split)" class="sv-cuerpo"/>
+    <rect x="44" y="62" width="136" height="6" rx="3" class="sv-ranura"/>
+    <circle cx="176" cy="44" r="3" class="sv-led sv-led--fijo"/>
+    <g class="sv-aleta-w"><rect x="48" y="70" width="128" height="5" rx="2.5" class="sv-aleta"/></g>
+    ${[60,92,124,156].map((x,i)=>`<path d="M${x} 84 c-6 18 6 30 0 48 s6 30 0 44" class="sv-viento" stroke="url(#g-aire)" style="animation-delay:${i*-.55}s"/>`).join('')}
+    <g transform="translate(208,108)">
+      <rect width="92" height="66" rx="14" fill="url(#g-split)" class="sv-cuerpo"/>
+      <circle cx="40" cy="33" r="23" class="sv-rejilla"/>
+      <g class="sv-helice"><path d="M40 33c0-12 9-16 12-10s-6 10-12 10Zm0 0c12 0 16 9 10 12s-10-6-10-12Zm0 0c0 12-9 16-12 10s6-10 12-10Zm0 0c-12 0-16-9-10-12s10 6 10 12Z" class="sv-pala"/></g>
+      <path d="M74 18v30M82 18v30" class="sv-ranura-l"/>
+    </g>
+    <path d="M196 46 H232 Q244 46 244 58 V108" class="sv-cobre"/>
+    <path d="M196 46 H232 Q244 46 244 58 V108" class="sv-pulso sv-pulso--frio"/>
+    <g transform="translate(244,14)"><rect width="62" height="30" rx="15" class="sv-pill"/>
+      <text x="31" y="20" text-anchor="middle" class="sv-temp">18°</text></g>
+  </svg>`,
+  seguridad:`<svg class="sv-fig" viewBox="0 0 320 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Cámara vigilando con barrido y la imagen en vivo en un celular">
+    <defs>
+      <linearGradient id="g-cam" x1="0" y1="0" x2="0" y2="1"><stop offset="0" style="stop-color:var(--paper)"/><stop offset="1" style="stop-color:var(--paper-3)"/></linearGradient>
+      <linearGradient id="g-cono" x1="0" y1="0" x2="1" y2="0"><stop offset="0" style="stop-color:var(--accent)" stop-opacity=".38"/><stop offset="1" style="stop-color:var(--accent)" stop-opacity="0"/></linearGradient>
+      <linearGradient id="g-pant" x1="0" y1="0" x2="1" y2="1"><stop offset="0" style="stop-color:var(--r3)"/><stop offset="1" style="stop-color:var(--r4)"/></linearGradient>
+    </defs>
+    <circle cx="90" cy="70" r="92" class="sv-halo"/>
+    <rect x="22" y="30" width="12" height="44" rx="4" class="sv-llave"/>
+    <path d="M34 52h14" class="sv-brazo"/>
+    <g transform="translate(48,52)"><g class="sv-cam-gira">
+      <path d="M0 0 L150 -42 L150 58 Z" fill="url(#g-cono)" class="sv-cono"/>
+      <rect x="0" y="-15" width="62" height="30" rx="12" fill="url(#g-cam)" class="sv-cuerpo"/>
+      <circle cx="62" cy="0" r="12" class="sv-lente-a"/><circle cx="62" cy="0" r="5.5" class="sv-lente"/>
+      <circle cx="14" cy="-5" r="3" class="sv-rec"/>
+    </g></g>
+    <g transform="translate(222,62)">
+      <rect width="72" height="122" rx="16" class="sv-tel"/>
+      <rect x="7" y="16" width="58" height="72" rx="8" fill="url(#g-pant)"/>
+      <path d="M14 76 L30 56 L40 66 L52 50 L60 62 V82 H14Z" class="sv-escena"/>
+      <circle cx="49" cy="32" r="5" class="sv-sol"/>
+      <g transform="translate(13,22)"><rect width="24" height="10" rx="5" class="sv-vivo-bg"/><circle cx="6" cy="5" r="2.4" class="sv-rec"/>
+        <text x="16" y="7.6" text-anchor="middle" class="sv-vivo">EN VIVO</text></g>
+      <rect x="26" y="100" width="20" height="4" rx="2" class="sv-ranura"/>
+    </g>
+    ${[0,1,2].map(i=>`<path d="M${190+i*9} ${96-i*9} a${14+i*9} ${14+i*9} 0 0 1 0 ${30+i*18}" class="sv-onda" style="animation-delay:${i*.35}s"/>`).join('')}
+    <g transform="translate(270,52)" class="sv-escudo-w"><g class="sv-escudo">
+      <path d="M0 -14 L12 -9 V0 C12 8 6 13 0 15 C-6 13 -12 8 -12 0 V-9 Z" class="sv-escudo-f"/>
+      <path d="m-5 0 3.4 3.4L5.4-3.4" class="sv-escudo-c"/></g></g>
+  </svg>`
 };
 
 /* --- índice lateral --- */
@@ -1145,7 +1402,7 @@ const SECCIONES = [
   { id:'inicio',     t:'Inicio', corto:'Inicio', ico:'<path d="M2.6 6.9 8 2.6l5.4 4.3v6.2a.9.9 0 0 1-.9.9H3.5a.9.9 0 0 1-.9-.9V6.9Z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/>' },
   { id:'reuniones',  t:'Reuniones', corto:'Fechas', ico:'<rect x="2.4" y="3.4" width="11.2" height="10.2" rx="1.6" stroke="currentColor" stroke-width="1.4"/><path d="M2.4 6.6h11.2M5.6 2.2v2.4M10.4 2.2v2.4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>' },
   { id:'vistazo',    t:'De un vistazo', corto:'Vistazo', ico:'<path d="M3.2 13V8.4M8 13V3.4M12.8 13v-3" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>' },
-  { id:'rubros-sec', t:'Qué se ofrece', corto:'Servicios', ico:'<rect x="2.5" y="2.5" width="4.6" height="4.6" rx="1.2" stroke="currentColor" stroke-width="1.35"/><rect x="8.9" y="2.5" width="4.6" height="4.6" rx="1.2" stroke="currentColor" stroke-width="1.35"/><rect x="2.5" y="8.9" width="4.6" height="4.6" rx="1.2" stroke="currentColor" stroke-width="1.35"/><rect x="8.9" y="8.9" width="4.6" height="4.6" rx="1.2" stroke="currentColor" stroke-width="1.35"/>' },
+  { id:'rubros-sec', t:'Qué se va a ofrecer', corto:'Servicios', ico:'<rect x="2.5" y="2.5" width="4.6" height="4.6" rx="1.2" stroke="currentColor" stroke-width="1.35"/><rect x="8.9" y="2.5" width="4.6" height="4.6" rx="1.2" stroke="currentColor" stroke-width="1.35"/><rect x="2.5" y="8.9" width="4.6" height="4.6" rx="1.2" stroke="currentColor" stroke-width="1.35"/><rect x="8.9" y="8.9" width="4.6" height="4.6" rx="1.2" stroke="currentColor" stroke-width="1.35"/>' },
   { id:'pendientes', t:'Lo que hay que mover', corto:'Tareas', ico:'<path d="M2.6 4.6 4 6l2.4-2.4M2.6 11.4 4 12.8l2.4-2.4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/><path d="M8.4 5h5M8.4 11.8h5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>' },
   { id:'fichas',     t:'Fichas', corto:'Fichas', ico:'<path d="M2.4 5.2a1.4 1.4 0 0 1 1.4-1.4h2.3l1.3 1.6h4.8a1.4 1.4 0 0 1 1.4 1.4v4.8a1.4 1.4 0 0 1-1.4 1.4H3.8a1.4 1.4 0 0 1-1.4-1.4V5.2Z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/>' }
 ];
@@ -1496,31 +1753,123 @@ function pestanas(seg, paneles, alCambiar){
   });
 })();
 
-/* --- rubros --- */
-$('rubros').innerHTML = RUBROS.map(r => `
-  <article class="rubro">${FIGURAS[r.fig]||''}
-    <div class="rubro__in"><h4>${r.t}</h4><p>${r.d}</p>${marca(r.e,r.etq)}</div>
-  </article>`).join('');
+/* --- servicios: pestaña por servicio, figura + qué es + proceso --- */
 (function(){
-  const car = $('rubros'), pts = $('rubros-pts');
-  pts.innerHTML = RUBROS.map(() => '<i></i>').join('');
-  const ps = [...pts.children], cs = [...car.children];
-  const marcaPunto = () => {
-    const x = car.scrollLeft, w = cs[0].getBoundingClientRect().width + 12;
-    const i = Math.min(cs.length - 1, Math.round(x / w));
-    ps.forEach((p,j) => p.classList.toggle('on', j === i));
+  const icoP = n => `<svg viewBox="0 0 16 16" fill="none" aria-hidden="true">${ICO_PASO[n]||''}</svg>`;
+  $('seg-serv').innerHTML = RUBROS.map(r => `<button type="button" role="tab">${r.corto}</button>`).join('');
+  $('rubros').innerHTML = RUBROS.map(r => `
+    <article class="serv">
+      <div class="serv__top">
+        <div class="serv__fig">${FIGURAS[r.fig]||''}</div>
+        <div class="serv__tx">
+          <h3>${r.t}</h3>
+          <p class="serv__d">${r.d}</p>
+          <div class="serv__k">Para</div>
+          <div class="serv__chips">${r.para.map(x => `<span>${x}</span>`).join('')}</div>
+          <div class="serv__k">Incluye</div>
+          <ul class="serv__inc">${r.incluye.map(x => `<li>${icoP('ok')}${x}</li>`).join('')}</ul>
+          <p class="serv__nota">${r.nota}</p>
+        </div>
+      </div>
+      <div class="proc">
+        <div class="proc__h"><span class="serv__k">Cómo será el proceso</span><span class="proc__pago"><b>50 %</b> al empezar · <b>50 %</b> al entregar</span></div>
+        <ol class="proc__l" style="--n:${r.pasos.length}">
+          <span class="proc__via" aria-hidden="true"><i></i></span>
+          ${r.pasos.map((p,i) => `
+          <li class="paso ${p.pago?'paso--pago':''}">
+            <span class="paso__i">${icoP(p.ico)}${p.pago?`<em>${p.pago.replace(' %','%')}</em>`:''}</span>
+            <span class="paso__tx"><span class="paso__n">${String(i+1).padStart(2,'0')}</span>
+              <span class="paso__t">${p.t}</span><span class="paso__d">${p.d}</span></span>
+          </li>`).join('')}
+        </ol>
+      </div>
+    </article>`).join('');
+
+  const servs = [...$('rubros').children];
+  /* el proceso se recorre solo, paso por paso, mientras la sección está a la vista */
+  const quieto = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let k = 0, reloj = null, visible = false;
+  const activo = () => servs.find(x => x.classList.contains('on'));
+  const pinta = () => {
+    const a = activo(); if (!a) return;
+    const ps = [...a.querySelectorAll('.paso')];
+    ps.forEach((p,i) => { p.classList.toggle('hecho', i < k); p.classList.toggle('ahora', i === k); });
+    a.style.setProperty('--avance', ps.length > 1 ? k / (ps.length - 1) : 1);
   };
-  car.addEventListener('scroll', marcaPunto, { passive:true });
-  marcaPunto();
+  const corre = () => {
+    clearInterval(reloj);
+    if (quieto) { k = 99; pinta(); return; }
+    k = 0; pinta();
+    if (!visible) return;
+    reloj = setInterval(() => {
+      const n = activo().querySelectorAll('.paso').length;
+      k = k >= n ? 0 : k + 1;   /* al final queda un instante todo hecho y vuelve a empezar */
+      pinta();
+    }, 1300);
+  };
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver(es => es.forEach(e => { visible = e.isIntersecting; corre(); }),
+      { threshold:.25 }).observe($('rubros'));
+  } else { visible = true; }
+  pestanas($('seg-serv'), servs, () => corre());
 })();
 
 /* --- fichas --- */
 (function(){
-  $('segbar').innerHTML = SOCIOS.map((s,i) => `<i style="flex:${s.pct};background:${RAMPA[i]}"></i>`).join('');
-  $('tbl-socios').innerHTML = SOCIOS.map((s,i) => `
-    <tr><td data-l="Socio"><span class="sw" style="background:${RAMPA[i]}"></span><strong>${s.nombre}</strong></td>
-      <td data-l="Zona">${s.zona}</td><td data-l="Frente">${s.frente}</td>
-      <td class="n" data-l="Parte">${s.pct.toFixed(2)} %</td></tr>`).join('');
+  /* socios: avatar + ficha a la izquierda, dona a la derecha */
+  const total = SOCIOS.reduce((a,s) => a + s.pct, 0);
+  $('socios-lista').innerHTML = SOCIOS.map((s,i) => `
+    <li class="socio" data-i="${i}" data-prof="${s.prof}" tabindex="0">
+      <span class="ava" data-tono="${RAMPA[i].slice(6,8)}" style="--c:${RAMPA[i]}">
+        <span class="ava__i">${s.nombre[0]}</span>
+        <span class="ava__b" title="${s.titulo}"><svg viewBox="0 0 16 16" fill="none" aria-hidden="true">${ICO_PROF[s.prof]||''}</svg></span>
+      </span>
+      <span class="socio__tx">
+        <span class="socio__n">${s.nombre}<span class="socio__z">${s.zona}</span></span>
+        <span class="socio__p">${s.titulo}${s.confirmar ? '<em class="socio__q" title="Dato por confirmar">por confirmar</em>' : ''}</span>
+        <span class="socio__f">${s.frente}</span>
+      </span>
+      <span class="socio__pct" style="--c:${RAMPA[i]}">${s.pct.toFixed(2)}<small>%</small></span>
+    </li>`).join('');
+
+  /* la dona: un arco por socio, con una pequeña separación entre ellos */
+  const R = 46, C = 2 * Math.PI * R, sep = 2.2;
+  let acum = 0;
+  $('dona-arcos').innerHTML = SOCIOS.map((s,i) => {
+    const largo = s.pct / 100 * C;
+    const arco = `<circle class="dona__a" data-i="${i}" cx="60" cy="60" r="${R}"
+      stroke="${RAMPA[i]}" stroke-dasharray="0 ${C}" data-d="${Math.max(0, largo - sep)} ${C}"
+      stroke-dashoffset="${-acum}"/>`;
+    acum += largo;
+    return arco;
+  }).join('');
+  $('dona-n').textContent = total.toFixed(2) + ' %';
+  $('dona-q').textContent = SOCIOS.length + ' socios';
+
+  /* se dibuja al abrir la ficha */
+  const dibuja = () => document.querySelectorAll('.dona__a').forEach((a,i) =>
+    setTimeout(() => a.setAttribute('stroke-dasharray', a.dataset.d), 120 + i * 140));
+  const ficha = $('dona').closest('details');
+  if (ficha) ficha.addEventListener('toggle', () => {
+    if (ficha.open) dibuja();
+    else document.querySelectorAll('.dona__a').forEach(a => a.setAttribute('stroke-dasharray', '0 ' + C));
+  });
+
+  /* pasar por un socio resalta su arco, y al revés */
+  const foco = i => {
+    document.querySelectorAll('.socio').forEach(el => el.classList.toggle('on', +el.dataset.i === i));
+    document.querySelectorAll('.dona__a').forEach(a => a.classList.toggle('apaga', i !== null && +a.dataset.i !== i));
+    const s = SOCIOS[i];
+    $('dona-n').textContent = s ? s.pct.toFixed(2) + ' %' : total.toFixed(2) + ' %';
+    $('dona-q').textContent = s ? s.nombre : SOCIOS.length + ' socios';
+  };
+  const lista = $('socios-lista'), dona = $('dona');
+  [lista, dona].forEach(el => {
+    el.addEventListener('pointerover', e => { const t = e.target.closest('[data-i]'); if (t) foco(+t.dataset.i); });
+    el.addEventListener('pointerleave', () => foco(null));
+  });
+  lista.addEventListener('focusin', e => { const t = e.target.closest('[data-i]'); if (t) foco(+t.dataset.i); });
+  lista.addEventListener('focusout', () => foco(null));
   $('tbl-nombres').innerHTML = NOMBRES.map(n => `
     <tr><td data-l="Nombre"><strong>${n.t}</strong></td><td data-l="Por qué">${n.por}</td>
       <td data-l="En INDECOPI">${marca(n.e,n.etq)}<br>${n.ind}</td></tr>`).join('');
