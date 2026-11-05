@@ -189,11 +189,29 @@ section{padding:54px 0;scroll-margin-top:20px}
 .acb__leg span{font-family:'Inter',sans-serif;font-size:11.5px;color:var(--ink-2);display:inline-flex;align-items:center;gap:7px}
 .acb__leg b{font-weight:700;color:var(--ink);font-variant-numeric:tabular-nums}
 
-.acuerdos li{display:grid;grid-template-columns:auto 1fr;gap:12px;padding:10px 0;
-  border-top:1px solid var(--rule);font-size:.92em;line-height:1.55;color:var(--ink-2)}
+/* los acuerdos son marcables: el estado dice qué decidió la reunión,
+   la casilla dice si ya quedó resuelto */
+.acuerdos li{border-top:1px solid var(--rule)}
 .acuerdos li:first-child{border-top:none}
-.acuerdos .estado{margin-top:.4em}
 .acuerdos strong{color:var(--ink);font-weight:600}
+/* doble clase para ganarle a .chk, que se define más abajo */
+.chk.chk--ac{display:grid;grid-template-columns:auto 96px minmax(0,1fr);gap:0 14px;align-items:start;
+  padding:12px 10px;margin:0 -10px;cursor:pointer;font-size:.92em;line-height:1.55;color:var(--ink-2);
+  border-radius:7px;transition:background .15s}
+.chk.chk--ac:hover{background:var(--paper-3)}
+.chk.chk--ac:hover .chk__b{border-color:var(--ink-3)}
+.chk.chk--ac .estado{margin-top:.24em}
+.chk.chk--ac .chk__b{margin-top:.26em}
+@media (max-width:620px){
+  .chk.chk--ac{grid-template-columns:auto minmax(0,1fr);gap:7px 12px;padding:12px 8px;margin:0 -8px}
+  .chk.chk--ac .chk__b{grid-row:1/3}
+  .chk.chk--ac .estado{grid-column:2;grid-row:1;margin-top:.1em}
+  .chk.chk--ac .chk__t{grid-column:2;grid-row:2}
+}
+.ac-prog{display:flex;align-items:center;gap:13px;margin-top:16px;padding-top:15px;border-top:1px solid var(--rule)}
+.ac-prog__bar{flex:1;height:4px;border-radius:2px;background:var(--paper-3);overflow:hidden}
+.ac-prog__bar i{display:block;height:100%;background:var(--accent);width:0;transition:width .45s cubic-bezier(.2,.8,.2,1)}
+.ac-prog__n{font-family:'Inter',sans-serif;font-size:11.5px;color:var(--ink-3);white-space:nowrap}
 
 .vermas{margin-top:20px;display:inline-flex;align-items:center;gap:9px;cursor:pointer;
   background:none;border:1px solid var(--rule-2);border-radius:999px;padding:9px 17px;
@@ -240,30 +258,41 @@ section{padding:54px 0;scroll-margin-top:20px}
 .bar__tr{height:9px;border-radius:5px;background:var(--paper-3);overflow:hidden}
 .bar__f{display:block;height:100%;border-radius:5px;width:0;transition:width .9s cubic-bezier(.2,.8,.2,1)}
 
-/* ruta */
+/* ruta: estaciones con icono sobre una vía */
 .ruta{display:grid;grid-template-columns:repeat(6,1fr);gap:0;position:relative}
-@media (max-width:760px){.ruta{grid-template-columns:repeat(3,1fr);gap:20px 0}}
-@media (max-width:420px){.ruta{grid-template-columns:repeat(2,1fr)}}
-.hito{position:relative;padding-right:10px}
-.hito__l{height:2px;background:var(--rule-2);margin-bottom:16px}
-.hito--ok .hito__l{background:var(--ok)}
-.hito--wip .hito__l{background:linear-gradient(90deg,var(--wip),var(--rule-2))}
-.hito__p{position:absolute;left:0;top:1px;transform:translate(-50%,-50%);width:13px;height:13px;
-  border-radius:50%;background:var(--paper-2);border:2px solid var(--rule-2)}
-.hito--ok .hito__p{background:var(--ok);border-color:var(--ok)}
-.hito--wip .hito__p{border-color:var(--wip);animation:pulso 2.2s ease-in-out infinite}
-@keyframes pulso{0%,100%{box-shadow:0 0 0 0 var(--accent-soft)}50%{box-shadow:0 0 0 6px var(--accent-soft)}}
-.hito__n{font-family:'Inter',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;color:var(--ink-3)}
-.hito__t{font-size:14px;font-weight:600;line-height:1.25;margin:4px 0 5px;min-height:2.4em}
+@media (max-width:860px){.ruta{grid-template-columns:repeat(3,1fr);row-gap:28px}}
+@media (max-width:470px){.ruta{grid-template-columns:repeat(2,1fr)}}
+.hito{position:relative;padding-right:14px}
+.hito__via{position:absolute;top:18px;left:44px;right:-2px;height:2px;background:var(--rule-2);opacity:.75}
+.hito--wip .hito__via{background:linear-gradient(90deg,var(--wip) 0%,var(--rule-2) 85%);opacity:1}
+.hito--ok .hito__via{background:var(--ok);opacity:1}
+.ruta .hito:last-child .hito__via{background:linear-gradient(90deg,var(--rule-2),transparent)}
+.hito__p{position:relative;z-index:1;width:38px;height:38px;border-radius:50%;display:grid;place-items:center;
+  background:var(--paper-2);border:2px solid var(--rule-2);color:var(--ink-3);
+  transition:border-color .2s,color .2s,transform .2s}
+.viz:hover .hito__p{transform:none}
+.hito--wip .hito__p{border-color:var(--wip);color:var(--wip);background:var(--paper)}
+.hito--wip .hito__p::after{content:"";position:absolute;inset:-5px;border-radius:50%;
+  border:1.5px solid var(--wip);animation:anillo 2.8s ease-out infinite}
+@keyframes anillo{0%{transform:scale(.88);opacity:.55}75%,100%{transform:scale(1.3);opacity:0}}
+.hito--ok .hito__p{background:var(--ok);border-color:var(--ok);color:#fff}
+.hito__n{font-family:'Inter',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;
+  color:var(--ink-3);margin-top:14px}
+.hito__t{font-size:14.5px;font-weight:600;line-height:1.25;margin:4px 0 6px;min-height:2.4em}
 .hito__e{font-size:10px}
 
 /* flujo del dinero */
 .flujo{display:flex;align-items:stretch;gap:0}
 @media (max-width:760px){.flujo{flex-direction:column;gap:0}}
-.fn{flex:1;min-width:0;border:1px solid var(--rule-2);border-radius:5px;padding:14px 12px;text-align:center;background:var(--paper)}
-.fn--pago{border-color:var(--accent);background:var(--accent-soft)}
-.fn__i{color:var(--accent);display:block;margin:0 auto 8px}
+.fn{flex:1;min-width:0;border:1px solid var(--rule-2);border-radius:9px;padding:15px 12px;text-align:center;
+  background:var(--paper);transition:transform .2s cubic-bezier(.2,.8,.2,1)}
+.fn:hover{transform:translateY(-3px)}
+.fn--pago{border-color:var(--accent);background:linear-gradient(var(--accent-soft),transparent)}
+.fn__i{color:var(--ink-3);display:block;margin:3px auto 11px;opacity:.85}
+.fn__pct{font-family:'Inter',sans-serif;font-size:26px;font-weight:700;letter-spacing:-.025em;
+  color:var(--accent);line-height:1;margin:0 0 9px}
 .fn__t{font-family:'Inter',sans-serif;font-size:12.5px;font-weight:600;line-height:1.3}
+.fn--pago .fn__t{color:var(--ink)}
 .fn__s{font-size:11px;color:var(--ink-3);font-family:'Inter',sans-serif;margin-top:4px;line-height:1.35}
 .fl{flex:0 0 34px;position:relative;align-self:center;height:2px;background:var(--rule-2)}
 .fl::after{content:"";position:absolute;top:-3px;left:0;width:8px;height:8px;border-radius:50%;
@@ -742,20 +771,20 @@ const INSTRUMENTOS = [
 ];
 
 const RUTA = [
-  { e:'wip',  t:'Nombre definido',    d:'Propuestas al jueves' },
-  { e:'open', t:'Constitución y RUC', d:'Tipo societario y capital' },
-  { e:'wip',  t:'Web y redes',        d:'Dominio y multiservicio' },
-  { e:'open', t:'Como ayudantes',     d:'Primera instalación en Lima' },
-  { e:'open', t:'Equipo propio',      d:'Instrumentos de arranque' },
-  { e:'open', t:'Multiservicio',      d:'Ventilación, frío, repuestos' }
+  { e:'wip',  ico:'nombre', t:'Nombre definido',    d:'Propuestas al jueves' },
+  { e:'open', ico:'sello',  t:'Constitución y RUC', d:'Tipo societario y capital' },
+  { e:'wip',  ico:'globo',  t:'Web y redes',        d:'Dominio y multiservicio' },
+  { e:'open', ico:'casco',  t:'Como ayudantes',     d:'Primera instalación en Lima' },
+  { e:'open', ico:'caja',   t:'Equipo propio',      d:'Instrumentos de arranque' },
+  { e:'open', ico:'malla',  t:'Multiservicio',      d:'Ventilación, frío, repuestos' }
 ];
 
 const FLUJO = [
-  { t:'Cotización', s:'Se envía al cliente', ico:'doc' },
-  { t:'50 % adelanto', s:'Cubre el equipo', ico:'cash', pago:true },
-  { t:'Instalación', s:'Montaje y conexión', ico:'tool' },
-  { t:'Pruebas', s:'Vacío y arranque', ico:'check' },
-  { t:'50 % saldo', s:'Mano de obra y margen', ico:'cash', pago:true }
+  { t:'Cotización',  s:'Se envía al cliente',     ico:'doc' },
+  { t:'Adelanto',    s:'Cubre el equipo',         ico:'cash',  pct:'50 %' },
+  { t:'Instalación', s:'Montaje y conexión',      ico:'tool' },
+  { t:'Pruebas',     s:'Vacío y arranque',        ico:'check' },
+  { t:'Saldo',       s:'Mano de obra y margen',   ico:'cash',  pct:'50 %' }
 ];
 
 const NOMBRES = [
@@ -840,6 +869,16 @@ const ICONOS={
 };
 const ico=(n,s)=>'<svg class="fn__i" width="'+(s||18)+'" height="'+(s||18)+'" viewBox="0 0 16 16" fill="none">'+(ICONOS[n]||'')+'</svg>';
 
+/* iconos de las estaciones de la ruta */
+const ICO_RUTA={
+  nombre:'<path d="M2.6 7.3V3.4a.9.9 0 0 1 .9-.9h3.9l6.2 6.2-4.8 4.8L2.6 7.3Z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/><circle cx="5.4" cy="5.4" r="1.05" fill="currentColor"/>',
+  sello:'<rect x="2.4" y="10.6" width="11.2" height="3" rx="1.1" stroke="currentColor" stroke-width="1.4"/><path d="M5.6 10.6 6.1 6.4a1.95 1.95 0 1 1 3.9 0l.5 4.2" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/>',
+  globo:'<circle cx="8" cy="8" r="5.6" stroke="currentColor" stroke-width="1.4"/><path d="M2.4 8h11.2M8 2.4c2.9 3.1 2.9 8.1 0 11.2M8 2.4C5.1 5.5 5.1 10.5 8 13.6" stroke="currentColor" stroke-width="1.2"/>',
+  casco:'<path d="M2.4 11.8h11.2M4 11.8V8.2a4 4 0 0 1 8 0v3.6" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/><path d="M6.6 4.9V3.6h2.8v1.3" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/>',
+  caja:'<rect x="2.3" y="5.6" width="11.4" height="7.9" rx="1.5" stroke="currentColor" stroke-width="1.4"/><path d="M6 5.6V4.2a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v1.4M2.3 9.1h11.4" stroke="currentColor" stroke-width="1.4"/>',
+  malla:'<rect x="2.5" y="2.5" width="4.6" height="4.6" rx="1.2" stroke="currentColor" stroke-width="1.4"/><rect x="8.9" y="2.5" width="4.6" height="4.6" rx="1.2" stroke="currentColor" stroke-width="1.4"/><rect x="2.5" y="8.9" width="4.6" height="4.6" rx="1.2" stroke="currentColor" stroke-width="1.4"/><rect x="8.9" y="8.9" width="4.6" height="4.6" rx="1.2" stroke="currentColor" stroke-width="1.4"/>'
+};
+
 /* --- figuras de los rubros --- */
 const FIGURAS={
   electrica:`<svg class="rubro__fig" viewBox="0 0 260 150" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Tablero eléctrico con llaves y circuitos energizados">
@@ -916,6 +955,20 @@ const ORDEN = [...REUNIONES].sort((a,b) => b.n - a.n);
 /* abre en la última reunión ya realizada: ahí está lo acordado */
 let activa = (ORDEN.find(r => r.estado !== 'programada') || ORDEN[0]).n;
 
+/* marcas de los acuerdos, guardadas en este navegador */
+const KEY_AC = 'bitacora.acuerdos.v1';
+let marcados = {};
+try { marcados = JSON.parse(localStorage.getItem(KEY_AC) || '{}') || {}; } catch(e) { marcados = {}; }
+
+function progAcuerdos(){
+  const ins = [...document.querySelectorAll('#panel input[data-ac]')];
+  const bar = $('ac-prog-i'), txt = $('ac-prog-n');
+  if (!ins.length || !bar || !txt) return;
+  const hechos = ins.filter(x => x.checked).length;
+  bar.style.width = (hechos / ins.length * 100) + '%';
+  txt.textContent = hechos + ' de ' + ins.length + ' resueltos';
+}
+
 function pintaLinea(){
   $('linea').innerHTML = ORDEN.map(r => {
     const f = partes(r.fecha);
@@ -949,7 +1002,16 @@ function pintaPanel(){
     .filter(k => cuenta[k])
     .map(k => `<span>${marca(k)} <b>${cuenta[k]}</b></span>`).join('');
 
-  const lista = arr => arr.map(x => `<li>${marca(x.e)}<span>${x.t}</span></li>`).join('');
+  /* cada acuerdo es una casilla; la clave guarda reunión + bloque + posición */
+  const lista = (arr, tipo) => arr.map((x,i) => {
+    const id = 'r' + r.n + '-' + tipo + i;
+    return `<li><label class="chk chk--ac">
+      <input type="checkbox" data-ac="${id}" ${marcados[id] ? 'checked' : ''}>
+      <span class="chk__b"><svg width="10" height="10" viewBox="0 0 16 16" fill="none"><path d="M3 8.5 6.3 12 13 4.5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      ${marca(x.e)}
+      <span class="chk__t">${x.t}</span>
+    </label></li>`;
+  }).join('');
 
   const relato = (r.relato||[]).map(b =>
     b.h ? '<h4>'+b.h+'</h4>'
@@ -968,7 +1030,11 @@ function pintaPanel(){
       ${todos.length ? `
         <div class="acb">${barra}</div>
         <div class="acb__leg">${leyenda}</div>
-        <ul class="acuerdos">${lista(r.decisiones)}${lista(r.cabos)}</ul>` : ''}
+        <ul class="acuerdos">${lista(r.decisiones,'d')}${lista(r.cabos,'c')}</ul>
+        <div class="ac-prog">
+          <span class="ac-prog__bar"><i id="ac-prog-i"></i></span>
+          <span class="ac-prog__n" id="ac-prog-n"></span>
+        </div>` : ''}
 
       ${r.agenda ? `<ul class="agenda">${r.agenda.map((a,i)=>
         `<li><span class="agenda__n">${i+1}</span><span>${a}</span></li>`).join('')}</ul>` : ''}
@@ -986,6 +1052,7 @@ function pintaPanel(){
 
   requestAnimationFrame(() => {
     document.querySelectorAll('.acb i').forEach(i => { i.style.width = i.dataset.w + '%'; });
+    progAcuerdos();
   });
 
   const vm = $('vermas');
@@ -1007,6 +1074,14 @@ $('linea').addEventListener('click', e => {
   void $('panel').offsetWidth;
   $('panel').classList.add('cambia');
   pintaPanel();
+});
+
+$('panel').addEventListener('change', e => {
+  const i = e.target.closest('input[data-ac]');
+  if (!i) return;
+  marcados[i.dataset.ac] = i.checked;
+  try { localStorage.setItem(KEY_AC, JSON.stringify(marcados)); } catch(err) {}
+  progAcuerdos();
 });
 
 pintaLinea();
@@ -1048,7 +1123,8 @@ pintaPanel();
   /* ruta */
   $('ruta').innerHTML = RUTA.map((h,i) => `
     <div class="hito hito--${h.e==='ok'?'ok':h.e==='wip'?'wip':'todo'}">
-      <div class="hito__l"></div><span class="hito__p"></span>
+      <span class="hito__via" aria-hidden="true"></span>
+      <span class="hito__p"><svg width="17" height="17" viewBox="0 0 16 16" fill="none">${ICO_RUTA[h.ico]||''}</svg></span>
       <div class="hito__n">0${i+1}</div>
       <div class="hito__t">${h.t}</div>
       <div class="hito__e">${marca(h.e, h.e==='wip'?'En curso':'Pendiente')}</div>
@@ -1058,9 +1134,9 @@ pintaPanel();
   /* flujo del dinero */
   $('flujo').innerHTML = FLUJO.map((f,i) => `
     ${i ? `<span class="fl" style="animation-delay:${i*.25}s"></span>` : ''}
-    <div class="fn ${f.pago?'fn--pago':''}">${ico(f.ico,18)}
+    <div class="fn ${f.pct?'fn--pago':''}">
+      ${f.pct ? `<div class="fn__pct">${f.pct}</div>` : ico(f.ico,19)}
       <div class="fn__t">${f.t}</div><div class="fn__s">${f.s}</div></div>`).join('');
-  document.querySelectorAll('.fl').forEach((el,i) => { el.style.setProperty('--d', i); });
 })();
 
 /* --- rubros --- */
