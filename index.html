@@ -445,48 +445,80 @@ footer{margin-top:40px;border-top:1px solid var(--ink);padding:16px 0 54px;opaci
 .nl:hover .nl__t,.nl:focus-visible .nl__t{opacity:1;transform:translateY(-50%) translateX(0)}
 
 .nav-lat__burbuja{display:none}
+.minimo{display:none}
 
-/* en teléfono y tablet: píldora flotante de vidrio, al estilo de las barras
-   de pestañas de iOS 26/27 — el contenido se desenfoca por detrás y la
-   burbuja de selección se desliza hasta la pestaña activa */
+/* en teléfono y tablet: barra vertical al borde derecho.
+   En reposo son seis marcas mínimas que no tapan nada; al tocarlas
+   se despliega el menú de vidrio y se vuelve a cerrar al elegir. */
 @media (max-width:1199px){
-  body{padding-bottom:98px}
+  body{padding-bottom:28px}
   .nav-lat{
-    display:block;top:auto;bottom:calc(14px + env(safe-area-inset-bottom));
-    left:14px;right:14px;transform:none;padding:6px;border-radius:999px;
-    background:rgba(247,244,238,.7);
-    backdrop-filter:blur(32px) saturate(190%);
-    -webkit-backdrop-filter:blur(32px) saturate(190%);
-    border:.5px solid rgba(255,255,255,.7);
-    box-shadow:inset 0 1px 0 rgba(255,255,255,.75),
-               0 10px 34px rgba(28,26,23,.18), 0 2px 8px rgba(28,26,23,.1);
+    display:block;top:50%;bottom:auto;left:auto;right:7px;transform:translateY(-50%);
+    padding:0;border-radius:23px;background:none;border:1px solid transparent;
+    box-shadow:none;transition:background .28s,box-shadow .28s,padding .28s,border-color .28s;
   }
-  :root[data-theme="dark"] .nav-lat{
-    background:rgba(34,34,31,.68);border-color:rgba(255,255,255,.15);
-    box-shadow:inset 0 1px 0 rgba(255,255,255,.13),
-               0 12px 36px rgba(0,0,0,.62), 0 2px 10px rgba(0,0,0,.4);
-  }
-  .nav-lat ul{flex-direction:row;gap:0;position:relative}
-  .nav-lat ul li{flex:1;min-width:0;display:flex}
   .nav-lat__cable{display:none}
 
-  .nav-lat__burbuja{display:block;position:absolute;top:0;bottom:0;left:0;z-index:0;
-    border-radius:999px;background:rgba(255,255,255,.8);
+  /* reposo: seis iconos pequeños en una cinta de vidrio */
+  .minimo{display:flex;flex-direction:column;align-items:center;gap:1px;
+    border:1px solid rgba(255,255,255,.55);border-radius:19px;
+    background:rgba(247,244,238,.6);
+    backdrop-filter:blur(18px) saturate(170%);-webkit-backdrop-filter:blur(18px) saturate(170%);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.7),0 4px 14px rgba(28,26,23,.13);
+    padding:5px 3px;cursor:pointer;-webkit-tap-highlight-color:transparent;
+    transition:box-shadow .25s,transform .18s}
+  :root[data-theme="dark"] .minimo{background:rgba(34,34,31,.6);border-color:rgba(255,255,255,.13);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.12),0 4px 16px rgba(0,0,0,.5)}
+  .minimo i{display:flex;align-items:center;justify-content:center;
+    width:28px;height:28px;border-radius:10px;color:var(--ink-3);opacity:.5;
+    transition:color .28s,opacity .28s,background .28s}
+  .minimo i svg{display:block;width:15px;height:15px}
+  .minimo i.on{opacity:1;color:var(--r4);background:rgba(255,255,255,.8);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.9),0 1px 5px rgba(28,26,23,.14)}
+  :root[data-theme="dark"] .minimo i.on{color:var(--r1);background:rgba(255,255,255,.15);
+    box-shadow:none}
+  .minimo:active{transform:scale(.95)}
+
+  /* desplegado: píldora de vidrio */
+  .nav-lat.abierto{
+    padding:6px;
+    background:rgba(247,244,238,.72);
+    backdrop-filter:blur(30px) saturate(190%);
+    -webkit-backdrop-filter:blur(30px) saturate(190%);
+    border-color:rgba(255,255,255,.7);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.8),
+               0 10px 34px rgba(28,26,23,.2), 0 2px 8px rgba(28,26,23,.1);
+  }
+  :root[data-theme="dark"] .nav-lat.abierto{
+    background:rgba(34,34,31,.72);border-color:rgba(255,255,255,.15);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.14), 0 12px 36px rgba(0,0,0,.65);
+  }
+  .nav-lat.abierto .minimo{display:none}
+
+  .nav-lat ul{display:none}
+  .nav-lat.abierto ul{display:flex;flex-direction:column;gap:2px;position:relative;
+    transform-origin:right center;animation:abreMenu .34s cubic-bezier(.32,1.12,.5,1)}
+  @keyframes abreMenu{from{opacity:0;transform:scale(.86) translateX(12px)}to{opacity:1;transform:none}}
+  .nav-lat ul li{display:block}
+
+  .nav-lat__burbuja{display:block;position:absolute;left:0;right:0;top:0;height:40px;z-index:0;
+    border-radius:16px;background:rgba(255,255,255,.82);
     box-shadow:inset 0 1px 0 rgba(255,255,255,.95), 0 2px 9px rgba(28,26,23,.16);
-    transition:transform .45s cubic-bezier(.32,1.14,.48,1), width .3s ease}
-  :root[data-theme="dark"] .nav-lat__burbuja{background:rgba(255,255,255,.15);
+    transition:transform .42s cubic-bezier(.32,1.14,.48,1)}
+  :root[data-theme="dark"] .nav-lat__burbuja{background:rgba(255,255,255,.16);
     box-shadow:inset 0 1px 0 rgba(255,255,255,.18), 0 2px 9px rgba(0,0,0,.4)}
 
-  .nl{position:relative;z-index:1;width:100%;height:auto;border:none;background:none;
-    border-radius:999px;padding:8px 2px 7px;gap:3px;grid-auto-flow:row;justify-items:center;
-    color:var(--ink-3);transition:color .25s,transform .18s}
+  .nl{position:relative;z-index:1;width:auto;height:40px;border:none;background:none;
+    border-radius:16px;padding:0 13px 0 11px;gap:10px;
+    grid-auto-flow:column;grid-template-columns:auto 1fr;justify-items:start;align-items:center;
+    color:var(--ink-3);transition:color .25s,transform .16s}
   .nl:hover{transform:none}
-  .nl:active{transform:scale(.92)}
+  .nl:active{transform:scale(.95)}
   .nl.on{box-shadow:none;background:none;color:var(--r4)}
   :root[data-theme="dark"] .nl.on{color:var(--r1)}
   .nl__t{display:none}
-  .nl__c{display:block;font-family:'Inter',system-ui,sans-serif;font-size:9.5px;font-weight:600;
-    letter-spacing:.01em;line-height:1;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .nl__c{display:block;font-family:'Inter',system-ui,sans-serif;font-size:12px;font-weight:600;
+    line-height:1;white-space:nowrap}
   .nl.on .nl__c{font-weight:700}
 }
 
@@ -501,6 +533,7 @@ footer{margin-top:40px;border-top:1px solid var(--ink);padding:16px 0 54px;opaci
 <nav class="nav-lat" id="navlat" aria-label="Secciones del blog">
   <span class="nav-lat__cable" aria-hidden="true"><i id="navlat-carga"></i></span>
   <ul id="navlat-lista"><span class="nav-lat__burbuja" id="navlat-burbuja" aria-hidden="true"></span></ul>
+  <button class="minimo" id="navlat-min" type="button" aria-expanded="false" aria-label="Abrir el índice de secciones"></button>
 </nav>
 
 <div class="page">
@@ -1052,6 +1085,31 @@ const SECCIONES = [
   const enlaces = [...lista.querySelectorAll('.nl')];
   const secs = SECCIONES.map(s => document.getElementById(s.id));
 
+  /* marcas mínimas del estado en reposo */
+  const nav = $('navlat'), boton = $('navlat-min');
+  boton.innerHTML = SECCIONES.map(s =>
+    '<i><svg viewBox="0 0 16 16" fill="none" aria-hidden="true">' + s.ico + '</svg></i>').join('');
+  const marcas = [...boton.querySelectorAll('i')];
+
+  let cierre;
+  const cerrar = () => {
+    nav.classList.remove('abierto');
+    boton.setAttribute('aria-expanded','false');
+    clearTimeout(cierre);
+  };
+  const abrir = () => {
+    nav.classList.add('abierto');
+    boton.setAttribute('aria-expanded','true');
+    clearTimeout(cierre);
+    cierre = setTimeout(cerrar, 4500);
+  };
+  boton.addEventListener('click', () => nav.classList.contains('abierto') ? cerrar() : abrir());
+  lista.addEventListener('click', e => { if (e.target.closest('.nl')) cerrar(); });
+  document.addEventListener('click', e => {
+    if (nav.classList.contains('abierto') && !nav.contains(e.target)) cerrar();
+  });
+  addEventListener('scroll', () => { if (nav.classList.contains('abierto')) cerrar(); }, { passive:true });
+
   const tick = () => {
     const h = document.documentElement;
     const max = h.scrollHeight - h.clientHeight;
@@ -1065,11 +1123,10 @@ const SECCIONES = [
       a.classList.toggle('on', on);
       if (on) a.setAttribute('aria-current','true'); else a.removeAttribute('aria-current');
     });
-    /* la burbuja de selección se desliza hasta la pestaña activa */
-    if (burbuja && enlaces.length) {
-      burbuja.style.width = (100 / enlaces.length) + '%';
-      burbuja.style.transform = 'translateX(' + (act * 100) + '%)';
-    }
+    /* la burbuja de selección baja hasta la sección activa */
+    if (burbuja) burbuja.style.transform = 'translateY(' + (act * 42) + 'px)';
+    /* y las marcas mínimas reflejan lo mismo sin ocupar espacio */
+    marcas.forEach((m,i) => m.classList.toggle('on', i === act));
   };
   addEventListener('scroll', tick, { passive:true });
   addEventListener('resize', tick);
