@@ -331,7 +331,21 @@ section{padding:54px 0;scroll-margin-top:20px}
 
 /* ===================== RUBROS ===================== */
 .rubros{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
-@media (max-width:780px){.rubros{grid-template-columns:1fr}}
+/* en el celular los tres frentes se deslizan de lado en vez de apilarse */
+@media (max-width:780px){
+  .rubros{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;
+    margin:0 -18px;padding:0 18px 2px;scroll-padding:0 18px;scrollbar-width:none;
+    -webkit-overflow-scrolling:touch}
+  .rubros::-webkit-scrollbar{display:none}
+  .rubro{flex:0 0 78%;scroll-snap-align:start}
+}
+.puntos{display:none}
+@media (max-width:780px){
+  .puntos{display:flex;justify-content:center;gap:6px;margin-top:14px}
+  .puntos i{width:6px;height:6px;border-radius:3px;background:var(--rule-2,var(--ink-3));opacity:.35;
+    transition:width .3s cubic-bezier(.3,1.15,.45,1),opacity .3s,background .3s}
+  .puntos i.on{width:18px;opacity:1;background:var(--accent)}
+}
 .rubro{border:1px solid var(--rule);border-radius:5px;overflow:hidden;background:var(--paper-2);display:flex;flex-direction:column}
 .rubro__fig{display:block;width:100%;height:auto;border-bottom:1px solid var(--rule);
   background-color:var(--paper-3);
@@ -343,7 +357,54 @@ section{padding:54px 0;scroll-margin-top:20px}
 
 /* ===================== PENDIENTES ===================== */
 .frentes{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--rule);border:1px solid var(--rule);border-radius:5px;overflow:hidden}
-@media (max-width:820px){.frentes{grid-template-columns:1fr}}
+@media (max-width:820px){.frentes{grid-template-columns:1fr}
+  .frentes .frente:not(.on){display:none}
+  .frentes .frente.on{animation:fade .3s ease}}
+@media (min-width:821px){#seg-frentes{display:none}}
+
+/* ===================== PESTAÑAS (control segmentado) ===================== */
+.seg{display:flex;gap:2px;padding:3px;margin-bottom:14px;border-radius:11px;
+  background:var(--paper-3);border:1px solid var(--rule);
+  overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.seg::-webkit-scrollbar{display:none}
+.seg button{flex:1 0 auto;display:inline-flex;align-items:center;justify-content:center;gap:6px;
+  font-family:'Inter',system-ui,sans-serif;font-size:12.5px;font-weight:600;color:var(--ink-3);
+  padding:8px 12px;border:none;border-radius:8px;background:none;cursor:pointer;white-space:nowrap;
+  -webkit-tap-highlight-color:transparent;transition:color .2s,background .25s,box-shadow .25s}
+.seg button:hover{color:var(--ink-2)}
+.seg button[aria-selected="true"]{color:var(--ink);background:var(--paper);
+  box-shadow:0 1px 3px rgba(28,26,23,.1),inset 0 0 0 1px var(--rule)}
+:root[data-theme="dark"] .seg button[aria-selected="true"]{box-shadow:0 1px 4px rgba(0,0,0,.45),inset 0 0 0 1px var(--rule)}
+.seg .cnt{font-size:11px;font-weight:700;font-variant-numeric:tabular-nums;color:var(--ink-3)}
+.seg button[aria-selected="true"] .cnt{color:var(--accent)}
+.seg .estado{font-size:inherit;letter-spacing:0;text-transform:none;color:inherit;font-weight:inherit}
+.panel .seg{margin:4px 0 6px}
+/* en pantalla angosta los cinco filtros caben enteros: número arriba, estado abajo */
+@media (max-width:560px){
+  .seg--est{display:grid;grid-template-columns:repeat(auto-fit,minmax(0,1fr));overflow:visible}
+  .seg--est button{flex-direction:column;gap:3px;padding:7px 2px 6px;min-width:0}
+  .seg--est .cnt{order:-1;font-size:15px;line-height:1;color:var(--ink-2)}
+  .seg--est{gap:0;padding:2px}
+  .seg--est .estado,.seg--est .seg__l{font-size:9px;font-weight:600;letter-spacing:0;gap:3px;white-space:nowrap}
+  .seg--est .estado::before{transform-origin:center;scale:.8}
+  .frentes .frente h3{display:none}
+}
+
+/* vistazo en pestañas: un panel a la vez */
+.vistazo.tabs{display:block}
+.vistazo.tabs > .viz{display:none}
+.vistazo.tabs > .viz.on{display:block;animation:fade .3s ease}
+
+/* acuerdos filtrados: la pestaña ya dice el estado, la fila no lo repite */
+.acuerdos[data-f="ok"] li:not([data-e="ok"]),
+.acuerdos[data-f="wip"] li:not([data-e="wip"]),
+.acuerdos[data-f="open"] li:not([data-e="open"]),
+.acuerdos[data-f="warn"] li:not([data-e="warn"]){display:none}
+.acuerdos:not([data-f="todos"]) .chk.chk--ac{grid-template-columns:auto minmax(0,1fr)}
+.acuerdos:not([data-f="todos"]) .chk.chk--ac .estado{display:none}
+.acuerdos:not([data-f="todos"]) .chk.chk--ac .chk__b{grid-row:auto}
+.acuerdos:not([data-f="todos"]) .chk.chk--ac .chk__t{grid-column:2;grid-row:1}
+.acuerdos li.entra{animation:fade .28s ease}
 .frente{background:var(--paper);padding:21px 20px}
 .frente h3{font-size:16px;font-weight:600;margin-bottom:2px}
 .frente__q{font-family:'Inter',sans-serif;font-size:11px;color:var(--accent);display:block;margin-bottom:14px}
@@ -459,25 +520,41 @@ footer{margin-top:40px;border-top:1px solid var(--ink);padding:16px 0 54px;opaci
   }
   .nav-lat__cable{display:none}
 
-  /* reposo: seis iconos pequeños en una cinta de vidrio */
-  .minimo{display:flex;flex-direction:column;align-items:center;gap:1px;
-    border:1px solid rgba(255,255,255,.55);border-radius:19px;
-    background:rgba(247,244,238,.6);
-    backdrop-filter:blur(18px) saturate(170%);-webkit-backdrop-filter:blur(18px) saturate(170%);
-    box-shadow:inset 0 1px 0 rgba(255,255,255,.7),0 4px 14px rgba(28,26,23,.13);
-    padding:5px 3px;cursor:pointer;-webkit-tap-highlight-color:transparent;
-    transition:box-shadow .25s,transform .18s}
-  :root[data-theme="dark"] .minimo{background:rgba(34,34,31,.6);border-color:rgba(255,255,255,.13);
-    box-shadow:inset 0 1px 0 rgba(255,255,255,.12),0 4px 16px rgba(0,0,0,.5)}
+  /* reposo: cinta de cristal, chica; crece al tocarla (estilo dock) */
+  .minimo{display:flex;flex-direction:column;align-items:center;gap:0;
+    border:1px solid rgba(255,255,255,.4);border-radius:15px;
+    background:rgba(255,255,255,.14);
+    backdrop-filter:blur(13px) saturate(230%);-webkit-backdrop-filter:blur(13px) saturate(230%);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.55),0 3px 12px rgba(28,26,23,.09);
+    padding:3px 2px;cursor:pointer;-webkit-tap-highlight-color:transparent;
+    transform-origin:right center;
+    transition:transform .34s cubic-bezier(.3,1.15,.45,1),
+               background .3s,box-shadow .3s,border-color .3s,border-radius .3s}
+  :root[data-theme="dark"] .minimo{background:rgba(255,255,255,.09);border-color:rgba(255,255,255,.14);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.1),0 3px 14px rgba(0,0,0,.4)}
   .minimo i{display:flex;align-items:center;justify-content:center;
-    width:28px;height:28px;border-radius:10px;color:var(--ink-3);opacity:.5;
-    transition:color .28s,opacity .28s,background .28s}
-  .minimo i svg{display:block;width:15px;height:15px}
-  .minimo i.on{opacity:1;color:var(--r4);background:rgba(255,255,255,.8);
-    box-shadow:inset 0 1px 0 rgba(255,255,255,.9),0 1px 5px rgba(28,26,23,.14)}
-  :root[data-theme="dark"] .minimo i.on{color:var(--r1);background:rgba(255,255,255,.15);
+    width:21px;height:21px;border-radius:7px;color:var(--ink-3);opacity:.45;
+    transition:color .28s,opacity .28s,background .28s,box-shadow .28s}
+  .minimo i svg{display:block;width:12px;height:12px;
+    transition:width .3s cubic-bezier(.3,1.15,.45,1),height .3s cubic-bezier(.3,1.15,.45,1)}
+  .minimo i.on{opacity:1;color:var(--r4);background:rgba(255,255,255,.55);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.8)}
+  :root[data-theme="dark"] .minimo i.on{color:var(--r1);background:rgba(255,255,255,.17);
     box-shadow:none}
-  .minimo:active{transform:scale(.95)}
+
+  /* al acercarse o tocarla se agranda, como el dock de macOS */
+  .minimo:hover,.minimo:focus-visible,.minimo.cerca{
+    transform:scale(1.34);
+    background:rgba(255,255,255,.26);border-color:rgba(255,255,255,.6);border-radius:17px;
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.75),0 8px 24px rgba(28,26,23,.16)}
+  :root[data-theme="dark"] .minimo:hover,
+  :root[data-theme="dark"] .minimo:focus-visible,
+  :root[data-theme="dark"] .minimo.cerca{
+    background:rgba(255,255,255,.15);border-color:rgba(255,255,255,.22);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.16),0 10px 28px rgba(0,0,0,.55)}
+  .minimo:hover i,.minimo.cerca i{opacity:.7}
+  .minimo:hover i.on,.minimo.cerca i.on{opacity:1}
+  .minimo:active{transform:scale(1.2)}
 
   /* desplegado: píldora de vidrio */
   .nav-lat.abierto{
@@ -698,6 +775,7 @@ footer{margin-top:40px;border-top:1px solid var(--ink);padding:16px 0 54px;opaci
     <span class="nota">Tres frentes que el equipo ya sabe ejecutar</span>
   </div>
   <div class="rubros rv" id="rubros"></div>
+  <div class="puntos" id="rubros-pts" aria-hidden="true"></div>
 </section>
 
 <!-- ======================= PENDIENTES ======================= -->
@@ -706,6 +784,7 @@ footer{margin-top:40px;border-top:1px solid var(--ink);padding:16px 0 54px;opaci
     <h2>Lo que hay que mover</h2>
     <span class="nota">Puedes marcar avances; quedan guardados en este navegador</span>
   </div>
+  <div class="seg" id="seg-frentes" role="tablist" aria-label="Frentes de trabajo"></div>
   <div class="frentes rv" id="frentes"></div>
 </section>
 
@@ -1104,6 +1183,13 @@ const SECCIONES = [
     cierre = setTimeout(cerrar, 4500);
   };
   boton.addEventListener('click', () => nav.classList.contains('abierto') ? cerrar() : abrir());
+  /* en pantalla táctil no hay "pasar por encima": el roce la agranda igual */
+  let roce;
+  boton.addEventListener('touchstart', () => {
+    boton.classList.add('cerca');
+    clearTimeout(roce);
+    roce = setTimeout(() => boton.classList.remove('cerca'), 1200);
+  }, { passive:true });
   lista.addEventListener('click', e => { if (e.target.closest('.nl')) cerrar(); });
   document.addEventListener('click', e => {
     if (nav.classList.contains('abierto') && !nav.contains(e.target)) cerrar();
@@ -1165,6 +1251,7 @@ const SECCIONES = [
 /* --- línea de tiempo + panel --- */
 const ORDEN = [...REUNIONES].sort((a,b) => b.n - a.n);
 /* abre en la última reunión ya realizada: ahí está lo acordado */
+let filtroAc = 'ok';
 let activa = (ORDEN.find(r => r.estado !== 'programada') || ORDEN[0]).n;
 
 /* marcas de los acuerdos, guardadas en este navegador */
@@ -1210,14 +1297,18 @@ function pintaPanel(){
   const barra = ['ok','wip','open','warn']
     .filter(k => cuenta[k])
     .map(k => `<i data-w="${cuenta[k]/todos.length*100}" style="background:${COLOR[k]}"></i>`).join('');
-  const leyenda = ['ok','wip','open','warn']
-    .filter(k => cuenta[k])
-    .map(k => `<span>${marca(k)} <b>${cuenta[k]}</b></span>`).join('');
+  /* la leyenda es también el filtro: un estado a la vez, o todos */
+  const hay = ['ok','wip','open','warn'].filter(k => cuenta[k]);
+  if (filtroAc !== 'todos' && !cuenta[filtroAc]) filtroAc = hay[0] || 'todos';
+  const pestanas = hay.map(k =>
+      `<button type="button" role="tab" data-f="${k}" aria-selected="${filtroAc===k}">${marca(k)}<span class="cnt">${cuenta[k]}</span></button>`
+    ).join('') +
+    `<button type="button" role="tab" data-f="todos" aria-selected="${filtroAc==='todos'}"><span class="seg__l">Todos</span><span class="cnt">${todos.length}</span></button>`;
 
   /* cada acuerdo es una casilla; la clave guarda reunión + bloque + posición */
   const lista = (arr, tipo) => arr.map((x,i) => {
     const id = 'r' + r.n + '-' + tipo + i;
-    return `<li><label class="chk chk--ac">
+    return `<li data-e="${x.e}"><label class="chk chk--ac">
       <input type="checkbox" data-ac="${id}" ${marcados[id] ? 'checked' : ''}>
       <span class="chk__b"><svg width="10" height="10" viewBox="0 0 16 16" fill="none"><path d="M3 8.5 6.3 12 13 4.5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
       ${marca(x.e)}
@@ -1244,8 +1335,8 @@ function pintaPanel(){
 
       ${todos.length ? `
         <div class="acb">${barra}</div>
-        <div class="acb__leg">${leyenda}</div>
-        <ul class="acuerdos">${lista(r.decisiones,'d')}${lista(r.cabos,'c')}</ul>
+        <div class="seg seg--est" id="seg-ac" role="tablist" aria-label="Filtrar acuerdos por estado">${pestanas}</div>
+        <ul class="acuerdos" id="acuerdos" data-f="${filtroAc}">${lista(r.decisiones,'d')}${lista(r.cabos,'c')}</ul>
         <div class="ac-prog">
           <span class="ac-prog__bar"><i id="ac-prog-i"></i></span>
           <span class="ac-prog__n" id="ac-prog-n"></span>
@@ -1289,6 +1380,16 @@ $('linea').addEventListener('click', e => {
   void $('panel').offsetWidth;
   $('panel').classList.add('cambia');
   pintaPanel();
+});
+
+$('panel').addEventListener('click', e => {
+  const b = e.target.closest('#seg-ac button');
+  if (!b) return;
+  filtroAc = b.dataset.f;
+  document.querySelectorAll('#seg-ac button').forEach(x => x.setAttribute('aria-selected', x === b));
+  const ul = $('acuerdos');
+  ul.dataset.f = filtroAc;
+  ul.querySelectorAll('li').forEach(li => { li.classList.remove('entra'); void li.offsetWidth; li.classList.add('entra'); });
 });
 
 $('panel').addEventListener('change', e => {
@@ -1361,11 +1462,57 @@ pintaPanel();
     </li>`).join('');
 })();
 
+/* --- pestañas genéricas --- */
+function pestanas(seg, paneles, alCambiar){
+  const bs = [...seg.querySelectorAll('button')];
+  const ir = i => {
+    bs.forEach((b,j) => b.setAttribute('aria-selected', j === i));
+    paneles.forEach((p,j) => p.classList.toggle('on', j === i));
+    if (alCambiar) alCambiar(paneles[i]);
+  };
+  seg.addEventListener('click', e => {
+    const b = e.target.closest('button');
+    if (b) ir(bs.indexOf(b));
+  });
+  ir(0);
+}
+
+/* --- vistazo: un panel a la vez --- */
+(function(){
+  const cont = document.querySelector('.vistazo');
+  const vs = [...cont.querySelectorAll(':scope > .viz')];
+  const nombres = ['Acuerdos','Costo','Ruta','Cobro'];
+  const seg = document.createElement('div');
+  seg.className = 'seg'; seg.setAttribute('role','tablist');
+  seg.setAttribute('aria-label','Paneles de un vistazo');
+  seg.innerHTML = vs.map((v,i) => `<button type="button" role="tab">${nombres[i] || v.querySelector('h3').textContent}</button>`).join('');
+  cont.before(seg);
+  cont.classList.add('tabs');
+  /* un panel que estaba oculto no lo ve el observador: se muestra y anima al elegirlo */
+  pestanas(seg, vs, v => {
+    if (!seg.dataset.listo) { seg.dataset.listo = 1; return; }
+    v.classList.add('in');
+    v.querySelectorAll('.bar__f').forEach(f => { f.style.width = f.dataset.w; });
+  });
+})();
+
 /* --- rubros --- */
 $('rubros').innerHTML = RUBROS.map(r => `
   <article class="rubro">${FIGURAS[r.fig]||''}
     <div class="rubro__in"><h4>${r.t}</h4><p>${r.d}</p>${marca(r.e,r.etq)}</div>
   </article>`).join('');
+(function(){
+  const car = $('rubros'), pts = $('rubros-pts');
+  pts.innerHTML = RUBROS.map(() => '<i></i>').join('');
+  const ps = [...pts.children], cs = [...car.children];
+  const marcaPunto = () => {
+    const x = car.scrollLeft, w = cs[0].getBoundingClientRect().width + 12;
+    const i = Math.min(cs.length - 1, Math.round(x / w));
+    ps.forEach((p,j) => p.classList.toggle('on', j === i));
+  };
+  car.addEventListener('scroll', marcaPunto, { passive:true });
+  marcaPunto();
+})();
 
 /* --- fichas --- */
 (function(){
@@ -1386,6 +1533,9 @@ $('rubros').innerHTML = RUBROS.map(r => `
   const KEY = 'bitacora.tareas.v1';
   let hechas = {};
   try { hechas = JSON.parse(localStorage.getItem(KEY) || '{}') || {}; } catch(e) { hechas = {}; }
+  const segF = $('seg-frentes');
+  segF.innerHTML = FRENTES.map((f,fi) =>
+    `<button type="button" role="tab">${f.titulo}<span class="cnt" data-tc="${fi}"></span></button>`).join('');
   $('frentes').innerHTML = FRENTES.map((f,fi) => `
     <div class="frente"><h3>${f.titulo}</h3><span class="frente__q">${f.quien}</span>
       <ul>${f.tareas.map((t,ti) => {
@@ -1406,6 +1556,8 @@ $('rubros').innerHTML = RUBROS.map(r => `
     if (b) b.style.width = (n/ins.length*100)+'%';
     const c = document.querySelector('[data-c="'+fi+'"]');
     if (c) c.textContent = n + ' de ' + ins.length + ' listas';
+    const tc = document.querySelector('[data-tc="'+fi+'"]');
+    if (tc) tc.textContent = n + '/' + ins.length;
   };
   $('frentes').addEventListener('change', e => {
     const i = e.target.closest('input[data-id]');
@@ -1415,6 +1567,7 @@ $('rubros').innerHTML = RUBROS.map(r => `
     pinta(i.dataset.f);
   });
   FRENTES.forEach((_,fi) => pinta(fi));
+  pestanas(segF, [...$('frentes').children]);
 })();
 
 /* --- tema --- */
