@@ -142,12 +142,12 @@ section{padding:54px 0;scroll-margin-top:20px}
 /* cada reunión es una hoja de calendario colgada de un cable */
 .cal{position:relative;margin-bottom:30px;padding:20px 2px 6px;overflow-x:auto;scrollbar-width:none}
 .cal::-webkit-scrollbar{display:none}
-.cal__cable{position:absolute;top:16px;left:0;right:0;height:2px;background:var(--rule-2)}
-.cal__in{display:flex;gap:16px;position:relative;min-width:min-content}
+.cal__cable{position:absolute;top:14px;left:0;right:0;height:2px;background:var(--rule-2)}
+.cal__in{display:flex;gap:13px;position:relative;min-width:min-content}
 
-.hoja{flex:0 0 auto;width:138px;background:none;border:none;padding:0;cursor:pointer;position:relative;text-align:center}
-.hoja__an{position:absolute;top:-13px;left:0;right:0;display:flex;justify-content:center;gap:48px;z-index:2}
-.hoja__an i{display:block;width:8px;height:21px;border:2px solid var(--ink-3);border-radius:4px;
+.hoja{flex:0 0 auto;width:106px;background:none;border:none;padding:0;cursor:pointer;position:relative;text-align:center}
+.hoja__an{position:absolute;top:-11px;left:0;right:0;display:flex;justify-content:center;gap:36px;z-index:2}
+.hoja__an i{display:block;width:7px;height:18px;border:2px solid var(--ink-3);border-radius:4px;
   background:var(--paper);opacity:.55;transition:border-color .2s,opacity .2s}
 .hoja.on .hoja__an i{border-color:var(--accent);opacity:1}
 
@@ -160,17 +160,18 @@ section{padding:54px 0;scroll-margin-top:20px}
 :root[data-theme="dark"] .hoja.on .hoja__in{box-shadow:0 8px 22px rgba(0,0,0,.5)}
 .hoja--prox .hoja__in{border-style:dashed}
 
-.hoja__mes{background:var(--r4);color:#fff;font-family:'Inter',sans-serif;font-size:10px;font-weight:700;
-  letter-spacing:.17em;padding:6px 0 5px;text-transform:uppercase}
-.hoja__dia{font-family:'Source Serif 4',Georgia,serif;font-size:40px;font-weight:700;line-height:1;
-  letter-spacing:-.03em;padding:15px 0 3px;color:var(--ink)}
+.hoja__mes{background:var(--r4);color:#fff;font-family:'Inter',sans-serif;font-size:8.5px;font-weight:700;
+  letter-spacing:.14em;padding:5px 0 4px;text-transform:uppercase}
+.hoja__dia{font-family:'Source Serif 4',Georgia,serif;font-size:30px;font-weight:700;line-height:1;
+  letter-spacing:-.03em;padding:11px 0 2px;color:var(--ink)}
 .hoja.on .hoja__dia{color:var(--accent)}
-.hoja__sem{font-family:'Inter',sans-serif;font-size:11.5px;color:var(--ink-3);padding-bottom:13px}
-.hoja__pie{border-top:1px solid var(--rule);padding:8px 6px;background:var(--paper-2)}
+.hoja__sem{font-family:'Inter',sans-serif;font-size:10.5px;color:var(--ink-3);padding-bottom:10px}
+.hoja__pie{border-top:1px solid var(--rule);padding:6px 4px;background:var(--paper-2)}
 .hoja.on .hoja__pie{background:var(--accent-soft)}
-.hoja__pie .estado{justify-content:center;font-size:9.5px}
-.hoja__n{position:absolute;top:30px;left:9px;font-family:'Inter',sans-serif;font-size:9.5px;
-  font-weight:700;letter-spacing:.08em;color:var(--ink-3);opacity:.75}
+.hoja__pie .estado{justify-content:center;font-size:8.5px;gap:5px}
+.hoja__pie .estado::before{width:6px;height:6px}
+.hoja__n{position:absolute;top:24px;left:7px;font-family:'Inter',sans-serif;font-size:8.5px;
+  font-weight:700;letter-spacing:.06em;color:var(--ink-3);opacity:.75}
 
 .panel{border:1px solid var(--rule);border-radius:5px;background:var(--paper-2);overflow:hidden}
 .panel__in{padding:24px 26px}
@@ -281,20 +282,44 @@ section{padding:54px 0;scroll-margin-top:20px}
 .hito__t{font-size:14.5px;font-weight:600;line-height:1.25;margin:4px 0 6px;min-height:2.4em}
 .hito__e{font-size:10px}
 
-/* flujo del dinero */
-.flujo{display:flex;align-items:stretch;gap:0}
-@media (max-width:760px){.flujo{flex-direction:column;gap:0}}
-.fn{flex:1;min-width:0;border:1px solid var(--rule-2);border-radius:9px;padding:15px 12px;text-align:center;
-  background:var(--paper);transition:transform .2s cubic-bezier(.2,.8,.2,1)}
-.fn:hover{transform:translateY(-3px)}
-.fn--pago{border-color:var(--accent);background:linear-gradient(var(--accent-soft),transparent)}
-.fn__i{color:var(--ink-3);display:block;margin:3px auto 11px;opacity:.85}
-.fn__pct{font-family:'Inter',sans-serif;font-size:26px;font-weight:700;letter-spacing:-.025em;
-  color:var(--accent);line-height:1;margin:0 0 9px}
-.fn__t{font-family:'Inter',sans-serif;font-size:12.5px;font-weight:600;line-height:1.3}
-.fn--pago .fn__t{color:var(--ink)}
-.fn__s{font-size:11px;color:var(--ink-3);font-family:'Inter',sans-serif;margin-top:4px;line-height:1.35}
-.fl{flex:0 0 34px;position:relative;align-self:center;height:2px;background:var(--rule-2)}
+/* cómo entra la plata: una vía con dos fichas de pago y tres pasos de obra */
+.pago{position:relative;padding:4px 0 2px}
+.pago__via{position:absolute;top:35px;left:10%;right:10%;height:3px;border-radius:2px;
+  background:var(--rule-2)}
+.pago__via i{position:absolute;top:-4px;width:11px;height:11px;border-radius:50%;background:var(--accent);
+  box-shadow:0 0 0 4px var(--accent-soft);animation:corre 5s cubic-bezier(.55,0,.45,1) infinite}
+@keyframes corre{0%{left:-3%;opacity:0}7%{opacity:1}93%{opacity:1}100%{left:100%;opacity:0}}
+.pago__pasos{display:grid;grid-template-columns:repeat(5,1fr)}
+.pp{display:flex;flex-direction:column;align-items:center;text-align:center;padding:0 7px;position:relative}
+.pp__box{height:72px;display:grid;place-items:center;position:relative;z-index:1}
+.pp__n{position:relative;width:40px;height:40px;border-radius:50%;background:var(--paper);
+  border:2px solid var(--rule-2);display:flex;align-items:center;justify-content:center;
+  color:var(--ink-3);transition:transform .22s}
+.pp:hover .pp__n{transform:scale(1.07)}
+.pp__n--pago{width:66px;height:66px;border:none;color:#fff;
+  background:linear-gradient(140deg,var(--r3),var(--r4));
+  font-family:'Inter',sans-serif;font-size:20px;font-weight:700;letter-spacing:-.02em;
+  box-shadow:0 5px 16px rgba(13,79,94,.26)}
+:root[data-theme="dark"] .pp__n--pago{box-shadow:0 5px 18px rgba(0,0,0,.55)}
+.pp__n--pago small{font-size:11px;font-weight:600;margin-left:1px;opacity:.9}
+.pp__n--pago::after{content:"";position:absolute;inset:-7px;border-radius:50%;
+  border:1.5px solid var(--accent);animation:anillo 3.2s ease-out infinite}
+.pp__txt{display:block;margin-top:13px}
+.pp__t{display:block;font-family:'Inter',sans-serif;font-size:13px;font-weight:600;line-height:1.25;color:var(--ink-2)}
+.pp--pago .pp__t{color:var(--ink)}
+.pp__s{display:block;font-family:'Inter',sans-serif;font-size:11px;color:var(--ink-3);margin-top:4px;line-height:1.35}
+@media (max-width:700px){
+  .pago__pasos{grid-template-columns:1fr}
+  .pp{flex-direction:row;align-items:center;text-align:left;gap:15px;padding:0 0 20px}
+  .pp:last-child{padding-bottom:0}
+  .pp__box{height:auto;flex:0 0 66px;width:66px}
+  .pago__via{top:33px;bottom:33px;left:32px;right:auto;width:3px;height:auto}
+  .pago__via i{left:-4px;top:0;animation-name:correV}
+  @keyframes correV{0%{top:-3%;opacity:0}7%{opacity:1}93%{opacity:1}100%{top:100%;opacity:0}}
+  .pp__txt{margin-top:0}
+  .pp__t{font-size:14px}
+}
+.fl{display:none}
 .fl::after{content:"";position:absolute;top:-3px;left:0;width:8px;height:8px;border-radius:50%;
   background:var(--accent);animation:viaja 2.6s linear infinite}
 @keyframes viaja{0%{left:-4px;opacity:0}15%{opacity:1}85%{opacity:1}100%{left:100%;opacity:0}}
@@ -392,16 +417,96 @@ pre .k{color:var(--accent)} pre .s{color:var(--ok)} pre .c{color:var(--ink-3);fo
 code{font-family:ui-monospace,'SF Mono',Menlo,monospace;font-size:.85em;background:var(--paper-3);padding:1px 5px;border-radius:3px}
 
 footer{margin-top:40px;border-top:1px solid var(--ink);padding:16px 0 54px;opacity:.9}
+/* ===================== ÍNDICE LATERAL ===================== */
+/* un conducto vertical: la corriente lo llena según el avance de lectura */
+.nav-lat{display:none;position:fixed;top:50%;transform:translateY(-50%);
+  right:calc(50% + 500px);z-index:40}
+@media (min-width:1200px){.nav-lat{display:block}}
+.nav-lat ul{display:flex;flex-direction:column;gap:21px;position:relative}
+.nav-lat__cable{position:absolute;left:19px;top:8px;bottom:8px;width:2px;border-radius:1px;
+  background:var(--rule-2);overflow:hidden}
+.nav-lat__cable i{display:block;width:100%;height:var(--avance,0);border-radius:1px;
+  background:linear-gradient(var(--accent),var(--r4));transition:height .18s linear,width .18s linear}
+.nl__c{display:none}
+.nl{position:relative;z-index:1;width:40px;height:40px;border-radius:50%;
+  display:grid;place-items:center;background:var(--paper);border:1.5px solid var(--rule-2);
+  color:var(--ink-3);text-decoration:none;
+  transition:border-color .2s,color .2s,box-shadow .25s,transform .2s}
+.nl:hover{border-color:var(--ink-3);color:var(--ink-2);transform:scale(1.07)}
+.nl.on{border-color:var(--accent);color:var(--accent);box-shadow:0 0 0 5px var(--accent-soft)}
+.nl:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.nl__t{position:absolute;left:53px;top:50%;white-space:nowrap;
+  transform:translateY(-50%) translateX(-7px);
+  font-family:'Inter',system-ui,sans-serif;font-size:12px;font-weight:600;
+  color:var(--ink);background:var(--paper);border:1px solid var(--rule-2);border-radius:999px;
+  padding:6px 13px;opacity:0;pointer-events:none;
+  box-shadow:0 5px 18px rgba(0,0,0,.13);transition:opacity .18s,transform .18s}
+:root[data-theme="dark"] .nl__t{box-shadow:0 5px 18px rgba(0,0,0,.6)}
+.nl:hover .nl__t,.nl:focus-visible .nl__t{opacity:1;transform:translateY(-50%) translateX(0)}
+
+.nav-lat__burbuja{display:none}
+
+/* en teléfono y tablet: píldora flotante de vidrio, al estilo de las barras
+   de pestañas de iOS 26/27 — el contenido se desenfoca por detrás y la
+   burbuja de selección se desliza hasta la pestaña activa */
+@media (max-width:1199px){
+  body{padding-bottom:98px}
+  .nav-lat{
+    display:block;top:auto;bottom:calc(14px + env(safe-area-inset-bottom));
+    left:14px;right:14px;transform:none;padding:6px;border-radius:999px;
+    background:rgba(247,244,238,.7);
+    backdrop-filter:blur(32px) saturate(190%);
+    -webkit-backdrop-filter:blur(32px) saturate(190%);
+    border:.5px solid rgba(255,255,255,.7);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.75),
+               0 10px 34px rgba(28,26,23,.18), 0 2px 8px rgba(28,26,23,.1);
+  }
+  :root[data-theme="dark"] .nav-lat{
+    background:rgba(34,34,31,.68);border-color:rgba(255,255,255,.15);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.13),
+               0 12px 36px rgba(0,0,0,.62), 0 2px 10px rgba(0,0,0,.4);
+  }
+  .nav-lat ul{flex-direction:row;gap:0;position:relative}
+  .nav-lat ul li{flex:1;min-width:0;display:flex}
+  .nav-lat__cable{display:none}
+
+  .nav-lat__burbuja{display:block;position:absolute;top:0;bottom:0;left:0;z-index:0;
+    border-radius:999px;background:rgba(255,255,255,.8);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.95), 0 2px 9px rgba(28,26,23,.16);
+    transition:transform .45s cubic-bezier(.32,1.14,.48,1), width .3s ease}
+  :root[data-theme="dark"] .nav-lat__burbuja{background:rgba(255,255,255,.15);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.18), 0 2px 9px rgba(0,0,0,.4)}
+
+  .nl{position:relative;z-index:1;width:100%;height:auto;border:none;background:none;
+    border-radius:999px;padding:8px 2px 7px;gap:3px;grid-auto-flow:row;justify-items:center;
+    color:var(--ink-3);transition:color .25s,transform .18s}
+  .nl:hover{transform:none}
+  .nl:active{transform:scale(.92)}
+  .nl.on{box-shadow:none;background:none;color:var(--r4)}
+  :root[data-theme="dark"] .nl.on{color:var(--r1)}
+  .nl__t{display:none}
+  .nl__c{display:block;font-family:'Inter',system-ui,sans-serif;font-size:9.5px;font-weight:600;
+    letter-spacing:.01em;line-height:1;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .nl.on .nl__c{font-weight:700}
+}
+
 .rv{opacity:0;transform:translateY(14px);transition:opacity .55s,transform .55s cubic-bezier(.2,.8,.2,1)}
 .rv.in{opacity:1;transform:none}
 </style>
 </head>
 <body>
 <div class="grain" aria-hidden="true"></div>
+
+<!-- índice lateral: conducto con una estación por sección -->
+<nav class="nav-lat" id="navlat" aria-label="Secciones del blog">
+  <span class="nav-lat__cable" aria-hidden="true"><i id="navlat-carga"></i></span>
+  <ul id="navlat-lista"><span class="nav-lat__burbuja" id="navlat-burbuja" aria-hidden="true"></span></ul>
+</nav>
+
 <div class="page">
 
 <!-- ======================= CABECERA ======================= -->
-<header class="masthead">
+<header class="masthead" id="inicio">
   <div class="masthead__top">
     <div>
       <span class="lbl">Blog de la empresa</span>
@@ -414,8 +519,7 @@ footer{margin-top:40px;border-top:1px solid var(--ink);padding:16px 0 54px;opaci
       <span id="toggle-txt">Oscuro</span>
     </button>
   </div>
-  <p class="masthead__sub">Cuatro socios armando una empresa de instalaciones eléctricas, aire acondicionado y seguridad electrónica.</p>
-  <div class="masthead__rule"></div>
+  <div class="masthead__rule" style="margin-top:20px"></div>
   <div class="masthead__rule"></div>
   <div class="colofon">
     <span class="colofon__rubros">Instalaciones eléctricas · aire acondicionado · seguridad electrónica</span>
@@ -544,7 +648,10 @@ footer{margin-top:40px;border-top:1px solid var(--ink);padding:16px 0 54px;opaci
     <div class="viz viz--ancho rv">
       <h3>Cómo entra la plata</h3>
       <p class="viz__s">La regla 50 / 50 evita financiar el equipo con capital propio</p>
-      <div class="flujo" id="flujo"></div>
+      <div class="pago">
+        <div class="pago__via" aria-hidden="true"><i></i></div>
+        <ol class="pago__pasos" id="flujo"></ol>
+      </div>
       <p class="viz__pie">El adelanto cubre como mínimo el equipo. El saldo —accesorios, movilidad, personal y margen— se cobra recién con las pruebas hechas.</p>
     </div>
 
@@ -921,6 +1028,54 @@ const FIGURAS={
     <path class="plano plano--d" d="M174 105h30M174 113h44M174 121h22"/></svg>`
 };
 
+/* --- índice lateral --- */
+const SECCIONES = [
+  { id:'inicio',     t:'Inicio', corto:'Inicio', ico:'<path d="M2.6 6.9 8 2.6l5.4 4.3v6.2a.9.9 0 0 1-.9.9H3.5a.9.9 0 0 1-.9-.9V6.9Z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/>' },
+  { id:'reuniones',  t:'Reuniones', corto:'Fechas', ico:'<rect x="2.4" y="3.4" width="11.2" height="10.2" rx="1.6" stroke="currentColor" stroke-width="1.4"/><path d="M2.4 6.6h11.2M5.6 2.2v2.4M10.4 2.2v2.4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>' },
+  { id:'vistazo',    t:'De un vistazo', corto:'Vistazo', ico:'<path d="M3.2 13V8.4M8 13V3.4M12.8 13v-3" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>' },
+  { id:'rubros-sec', t:'Qué se ofrece', corto:'Servicios', ico:'<rect x="2.5" y="2.5" width="4.6" height="4.6" rx="1.2" stroke="currentColor" stroke-width="1.35"/><rect x="8.9" y="2.5" width="4.6" height="4.6" rx="1.2" stroke="currentColor" stroke-width="1.35"/><rect x="2.5" y="8.9" width="4.6" height="4.6" rx="1.2" stroke="currentColor" stroke-width="1.35"/><rect x="8.9" y="8.9" width="4.6" height="4.6" rx="1.2" stroke="currentColor" stroke-width="1.35"/>' },
+  { id:'pendientes', t:'Lo que hay que mover', corto:'Tareas', ico:'<path d="M2.6 4.6 4 6l2.4-2.4M2.6 11.4 4 12.8l2.4-2.4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/><path d="M8.4 5h5M8.4 11.8h5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>' },
+  { id:'fichas',     t:'Fichas', corto:'Fichas', ico:'<path d="M2.4 5.2a1.4 1.4 0 0 1 1.4-1.4h2.3l1.3 1.6h4.8a1.4 1.4 0 0 1 1.4 1.4v4.8a1.4 1.4 0 0 1-1.4 1.4H3.8a1.4 1.4 0 0 1-1.4-1.4V5.2Z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/>' }
+];
+
+(function(){
+  const lista = $('navlat-lista'), carga = $('navlat-carga');
+  if (!lista) return;
+  const burbuja = $('navlat-burbuja');
+  lista.insertAdjacentHTML('beforeend', SECCIONES.map(s => `
+    <li><a class="nl" href="#${s.id}" title="${s.t}">
+      <svg width="18" height="18" viewBox="0 0 16 16" fill="none" aria-hidden="true">${s.ico}</svg>
+      <span class="nl__t">${s.t}</span>
+      <span class="nl__c">${s.corto}</span>
+    </a></li>`).join(''));
+
+  const enlaces = [...lista.querySelectorAll('.nl')];
+  const secs = SECCIONES.map(s => document.getElementById(s.id));
+
+  const tick = () => {
+    const h = document.documentElement;
+    const max = h.scrollHeight - h.clientHeight;
+    /* el mismo valor llena el cable: a lo alto en escritorio, a lo ancho en la barra */
+    carga.style.setProperty('--avance',
+      (max > 0 ? Math.min(100, Math.max(0, h.scrollTop / max * 100)) : 0) + '%');
+    let act = 0;
+    secs.forEach((s,i) => { if (s && s.getBoundingClientRect().top <= h.clientHeight * 0.34) act = i; });
+    enlaces.forEach((a,i) => {
+      const on = i === act;
+      a.classList.toggle('on', on);
+      if (on) a.setAttribute('aria-current','true'); else a.removeAttribute('aria-current');
+    });
+    /* la burbuja de selección se desliza hasta la pestaña activa */
+    if (burbuja && enlaces.length) {
+      burbuja.style.width = (100 / enlaces.length) + '%';
+      burbuja.style.transform = 'translateX(' + (act * 100) + '%)';
+    }
+  };
+  addEventListener('scroll', tick, { passive:true });
+  addEventListener('resize', tick);
+  tick();
+})();
+
 /* --- la lectura del equipo va bajando de 24° a 18° --- */
 (function(){
   const t = $('temp-txt');
@@ -1013,10 +1168,13 @@ function pintaPanel(){
     </label></li>`;
   }).join('');
 
-  const relato = (r.relato||[]).map(b =>
+  /* la entrada abre el relato completo; en el panel solo se muestra
+     cuando no hay acuerdos que contar (una reunión todavía por hacer) */
+  const cuerpo = (r.relato||[]).map(b =>
     b.h ? '<h4>'+b.h+'</h4>'
     : b.cita ? '<blockquote class="pull">«'+b.cita+'»'+(b.de?'<cite>'+b.de+'</cite>':'')+'</blockquote>'
     : '<p>'+b.p+'</p>').join('');
+  const relato = cuerpo ? `<p class="panel__lede">${r.entrada}</p>${cuerpo}` : '';
 
   $('panel').innerHTML = `
     <div class="panel__in">
@@ -1025,7 +1183,7 @@ function pintaPanel(){
         <span>${fdate(r.fecha)} · ${r.hora}</span>
         <span>${prog?'Convocados':'Presentes'}: ${r.quienes.join(', ')}</span>
       </div>
-      <p class="panel__lede">${r.entrada}</p>
+      ${todos.length ? '' : `<p class="panel__lede">${r.entrada}</p>`}
 
       ${todos.length ? `
         <div class="acb">${barra}</div>
@@ -1132,11 +1290,18 @@ pintaPanel();
     </div>`).join('');
 
   /* flujo del dinero */
-  $('flujo').innerHTML = FLUJO.map((f,i) => `
-    ${i ? `<span class="fl" style="animation-delay:${i*.25}s"></span>` : ''}
-    <div class="fn ${f.pct?'fn--pago':''}">
-      ${f.pct ? `<div class="fn__pct">${f.pct}</div>` : ico(f.ico,19)}
-      <div class="fn__t">${f.t}</div><div class="fn__s">${f.s}</div></div>`).join('');
+  $('flujo').innerHTML = FLUJO.map(f => `
+    <li class="pp ${f.pct ? 'pp--pago' : ''}">
+      <span class="pp__box">
+        <span class="pp__n ${f.pct ? 'pp__n--pago' : ''}">
+          ${f.pct ? '50<small>%</small>' : `<svg width="18" height="18" viewBox="0 0 16 16" fill="none">${ICONOS[f.ico]||''}</svg>`}
+        </span>
+      </span>
+      <span class="pp__txt">
+        <span class="pp__t">${f.t}</span>
+        <span class="pp__s">${f.s}</span>
+      </span>
+    </li>`).join('');
 })();
 
 /* --- rubros --- */
